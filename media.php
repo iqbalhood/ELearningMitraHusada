@@ -47,7 +47,7 @@ else{
 <meta name="robots" content="ALL,FOLLOW"/>
 <meta name="Author" content="Almazari"/>
 <meta http-equiv="imagetoolbar" content="no"/>
-<title>.::E-Learning SMP Muhdela::.</title>
+<title>.::E-Learning STIKes Mitra Husada Medan::.</title>
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
 <link rel="stylesheet" href="css/reset.css" type="text/css"/>
 <link rel="stylesheet" href="css/fancybox.css" type="text/css"/>

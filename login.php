@@ -74,8 +74,7 @@ function validasi(form){
                           <input name="submit"  class="submit" type="submit" value="LOGIN" />
                               </div></td></tr>
                         <tr>
-                            <td height="30"><a href="registrasi.php" class ="txt"><b>&rArr;Daftar E-Learning?</b></a><br>
-                                            </td>
+                            
                         </tr>
                         
                       

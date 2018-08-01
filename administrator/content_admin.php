@@ -18,7 +18,7 @@ $aksi_mapel="modul/mod_matapelajaran/aksi_matapelajaran.php";
 // Bagian Home
 if ($_GET['module']=='home'){
   if ($_SESSION['leveluser']=='admin'){
-  echo "<p>Hai <b>$_SESSION[namalengkap]</b>, Selamat datang di halaman Administrator E-learning SMK Negeri 1 Brebes.<br>
+  echo "<p>Hai <b>$_SESSION[namalengkap]</b>, Selamat datang di halaman Administrator E-learning STIKes Mitra Husada Medan.<br>
           Silahkan klik menu pilihan yang berada di sebelah kiri untuk mengelola website.</p>";
           ?>
          <h2>Quick Links</h2>
@@ -39,13 +39,13 @@ if ($_GET['module']=='home'){
 						<li>
 							<a href="?module=admin&act=pengajar">
 								<img src="images/eleganticons/Person-group.png" />
-								<span>Pengajar</span>
+								<span>Dosen</span>
 							</a>
 						</li>
 						<li>
 							<a href="?module=siswa">
 								<img src="images/eleganticons/Person-group.png" />
-								<span>Siswa</span>
+								<span>Mahasiswa</span>
 							</a>
 						</li>
 						<li>
@@ -63,7 +63,7 @@ if ($_GET['module']=='home'){
 						<li>
 							<a href="?module=matapelajaran">
 								<img src="images/eleganticons/Info.png" />
-								<span>Mata Pelajaran</span>
+								<span>Mata Kuliah</span>
 							</a>
 						</li>
 						<li>
@@ -144,7 +144,7 @@ if ($_GET['module']=='home'){
          $ketemu=mysql_num_rows($tampil_kelas);
          if (!empty($ketemu)){
                 echo "<br><br><table id='table1' class='gtable sortable'><thead>
-                <tr><th>No</th><th>Kelas</th><th>Wali Kelas</th><th>Ketua Kelas</th><th>Aksi</th></tr></thead>";
+                <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th><th>Kordinator Mahasiswa</th><th>Aksi</th></tr></thead>";
 
                 $no=1;
                 while ($r=mysql_fetch_array($tampil_kelas)){

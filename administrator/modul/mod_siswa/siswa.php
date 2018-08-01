@@ -20,11 +20,11 @@ switch($_GET[act]){
      $posisi = $p->cariPosisi($batas);
 
       $tampil_siswa = mysql_query("SELECT * FROM siswa ORDER BY id_kelas LIMIT $posisi,$batas");
-      echo "<h2>Manajemen Siswa</h2><hr>
-          <input class='button blue' type=button value='Tambah Siswa' onclick=\"window.location.href='?module=siswa&act=tambahsiswa';\">";
-      echo "<br><br><div class='information msg'>Siswa tidak bisa di hapus, tapi bisa di non aktifkan.</div>";
+      echo "<h2>Manajemen Mahasiswa</h2><hr>
+          <input class='button blue' type=button value='Tambah Mahasiswa' onclick=\"window.location.href='?module=siswa&act=tambahsiswa';\">";
+      echo "<br><br><div class='information msg'>Mahasiswa tidak bisa di hapus, tapi bisa di non aktifkan.</div>";
       echo "<br><table id='table1' class='gtable sortable'><thead>
-          <tr><th>No</th><th>Nis</th><th>Nama</th><th>Kelas</th><th>Jenis Kelamin</th>
+          <tr><th>No</th><th>Nim</th><th>Nama mahasiswa</th><th>Kelas</th><th>Jenis Kelamin</th>
             <th>Blokir</th><th>Aksi</th></tr></thead>";
       $no = $posisi+1;
     while ($r=mysql_fetch_array($tampil_siswa)){
@@ -61,7 +61,7 @@ case "lihatmurid":
     if(!empty($cek_siswa)){
     echo "<div class='information msg'>Daftar Siswa</div>
           <br><table id='table1' class='gtable sortable'><thead>
-          <tr><th>No</th><th>Nis</th><th>Nama</th><th>Kelas</th><th>Jenis Kelamin</th>
+          <tr><th>No</th><th>Nim</th><th>Nama mahasiswa</th><th>Kelas</th><th>Jenis Kelamin</th>
             <th>Blokir</th><th>Aksi</th></tr></thead>";
      $no=$posisi+1;
     while ($r=mysql_fetch_array($tampil)){
@@ -76,7 +76,7 @@ case "lihatmurid":
              echo "<td><p align='center'>$r[jenis_kelamin]</p></td>             
              <td><p align='center'>$r[blokir]</p></td>
              <td><a href='?module=siswa&act=editsiswa&id=$r[id_siswa]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |
-                 <a href=?module=detailsiswa&act=detailsiswa&id=$r[id_siswa]>Detail Siswa</a></td></tr>";
+                 <a href=?module=detailsiswa&act=detailsiswa&id=$r[id_siswa]>Detail Mahasiswa</a></td></tr>";
       $no++;
     }
     echo "</table>";
@@ -102,10 +102,10 @@ case "lihatmurid":
     if(!empty($cek_siswa)){
     echo "<form>
           <fieldset>
-          <legend>Daftar Siswa</legend>
+          <legend>Daftar Mahasiswa</legend>
           <dl class='inline'>";
     echo "<table id='table1' class='gtable sortable'><thead>
-          <tr><th>No</th><th>Nis</th><th>Nama</th><th>Kelas</th><th>Jenis Kelamin</th>
+          <tr><th>No</th><th>Nim</th><th>Nama Mahasiswa</th><th>Kelas</th><th>Jenis Kelamin</th>
            <th>Aksi</th></tr></thead>";
      $no=1;
     while ($r=mysql_fetch_array($tampil)){
@@ -117,7 +117,7 @@ case "lihatmurid":
              echo"<td><a href=?module=kelas&act=detailkelas&id=$k[id_kelas]>$k[nama]</a></td>";
              }
              echo "<td><p align='center'>$r[jenis_kelamin]</p></td>                       
-             <td><input type=button class='button small white' value='Detail Siswa' onclick=\"window.location.href='?module=detailsiswapengajar&act=detailsiswa&id=$r[id_siswa]';\">";
+             <td><input type=button class='button small white' value='Detail Mahasiswa' onclick=\"window.location.href='?module=detailsiswapengajar&act=detailsiswa&id=$r[id_siswa]';\">";
       $no++;
     }
     echo "</table>";
@@ -142,7 +142,7 @@ case "lihatmurid":
     if(!empty($cek_siswa)){
     echo"<br><b class='judul'>Daftar Teman</b><br><p class='garisbawah'></p>";
     echo "<table>
-          <tr><th>No</th><th>Nis</th><th>Nama</th><th>Jenis Kelamin</th><th>Th Masuk</th>
+          <tr><th>No</th><th>Nim</th><th>Nama Mahasiswa</th><th>Jenis Kelamin</th><th>Th Masuk</th>
            <th>Aksi</th></tr>";
      $no=1;
     while ($r=mysql_fetch_array($tampil)){
@@ -151,7 +151,7 @@ case "lihatmurid":
              <td>$r[nama_lengkap]</td>             
              <td>$r[jenis_kelamin]</td>
              <td>$r[th_masuk]</td>
-             <td><input type=button class='tombol' value='Detail Siswa'
+             <td><input type=button class='tombol' value='Detail Mahasiswa'
                  onclick=\"window.location.href='?module=siswa&act=detailsiswa&id=$r[id_siswa]';\">";
       $no++;
     }
@@ -178,9 +178,9 @@ case "tambahsiswa":
         echo "
           <form method=POST action='$aksi?module=siswa&act=input_siswa' enctype='multipart/form-data'>
           <fieldset>
-          <legend>Tambah Siswa</legend>
+          <legend>Tambah Mahasiswa</legend>
           <dl class='inline'>
-          <dt><label>Nis</label></dt>          <dd> : <input type=text name='nis'></dd>
+          <dt><label>Nim</label></dt>          <dd> : <input type=text name='nis'></dd>
           <dt><label>Nama Lengkap</label></dt> <dd> : <input type=text name='nama_lengkap' size=30></dd>
           <dt><label>Username Login</label></dt>     <dd> : <input type=text name='username'></dd>
           <dt><label>Password Login</label></dt>     <dd> : <input type=text name='password'></dd>
@@ -229,7 +229,7 @@ case "tambahsiswa":
 
   case "nis_ada":
      if ($_SESSION[leveluser]=='admin'){
-         echo "<span class='judulhead'><p class='garisbawah'>NIS SUDAH PERNAH DIGUNAKAN<br>
+         echo "<span class='judulhead'><p class='garisbawah'>NIM SUDAH PERNAH DIGUNAKAN<br>
                <input type=button value=Kembali onclick=self.history.back()></p></span>";
      }
      break;
@@ -246,7 +246,7 @@ case "tambahsiswa":
           <fieldset>
           <legend>Edit Siswa</legend>
           <dl class='inline'>
-          <dt><label>Nis</label></dt>     <dd> : <input type=text name=nis value='$r[nis]'></dd>
+          <dt><label>Nim</label></dt>     <dd> : <input type=text name=nis value='$r[nis]'></dd>
           <dt><label>Nama</label></dt>     <dd> : <input type=text name='nama' value='$r[nama_lengkap]' size=70></dd>
           <dt><label>Username Login</label></dt>     <dd> : <input type=text name='username' value='$r[username_login]'></dd>
           <dt><label>Password Login</label></dt> <dd> : <input type=text name='password' size=30><small>Apabila password tidak diubah, dikosongkan saja</small></dd>
@@ -323,7 +323,7 @@ case "tambahsiswa":
      echo"<form method=POST action=$aksi_siswa?module=siswa&act=update_profil_siswa enctype='multipart/form-data'>
           <input type=hidden name=id value='$r[id_siswa]'>
           <table>
-          <tr><td>Nis</td>     <td> : <input type=text name=nis value='$r[nis]' ></td></tr>
+          <tr><td>Nim</td>     <td> : <input type=text name=nis value='$r[nis]' ></td></tr>
           <tr><td>Nama</td>     <td> : <input type=text name='nama' value='$r[nama_lengkap]' size=40></td></tr>          
           <tr><td>Alamat</td>       <td> : <input type=text name='alamat' size=80 value='$r[alamat]'></td></tr>
           <tr><td>Tempat Lahir</td> <td> : <input type=text name='tempat_lahir' size=60 value='$r[tempat_lahir]'></td></tr>
@@ -384,9 +384,9 @@ case "tambahsiswa":
        $kelas = mysql_fetch_array($get_kelas);
        
        echo "<form><fieldset>
-          <legend>Detail Siswa</legend>
+          <legend>Detail Mahasiswa</legend>
           <dl class='inline'>
-          <dt><label>Nis</label></dt>        <dd> : $siswa[nis]</dd>
+          <dt><label>Nim</label></dt>        <dd> : $siswa[nis]</dd>
           <dt><label>Nama</label></dt>               <dd> : $siswa[nama_lengkap]</dd>
           <dt><label>Username Login</label></dt>     <dd> : $siswa[username_login]</dd>
           <dt><label>Kelas</label></dt>              <dd> : <a href=?module=kelas&act=detailkelas&id=$siswa[id_kelas]>$kelas[nama]</a></dd>
@@ -432,7 +432,7 @@ case "tambahsiswa":
        $kelas = mysql_fetch_array($get_kelas);
 
        echo "<form><fieldset>
-             <legend>Detail Siswa</legend>
+             <legend>Detail Mahasiswa</legend>
              <dl class='inline'>
        <table id='table1' class='gtable sortable'>
           <tr><td rowspan='15'>";if ($siswa[foto]!=''){
@@ -444,7 +444,7 @@ case "tambahsiswa":
                     <div>
                     </li>
                     </ul>";
-          }echo "</td><td>Nis</td>        <td> : $siswa[nis]</td></tr>
+          }echo "</td><td>Nim</td>        <td> : $siswa[nis]</td></tr>
           <tr><td>Nama</td>               <td> : $siswa[nama_lengkap]</td></tr>          
           <tr><td>Kelas</td>              <td> : <a href=?module=kelas&act=detailkelas&id=$siswa[id_kelas]>$kelas[nama]</td></tr>
           <tr><td>Jabatan</td>            <td> : $siswa[jabatan]</td></tr>
@@ -474,11 +474,11 @@ case "tambahsiswa":
        $get_kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$siswa[id_kelas]'");
        $kelas = mysql_fetch_array($get_kelas);
 
-      echo"<br><b class='judul'>Detail Siswa</b><br><p class='garisbawah'></p>
+      echo"<br><b class='judul'>Detail Mahasiswa</b><br><p class='garisbawah'></p>
        <table>
              <tr><td rowspan='14'>";if ($siswa[foto]!=''){
               echo "<img src='foto_siswa/medium_$siswa[foto]'>";
-          }echo "</td><td>Nis</td>        <td> : $siswa[nis]</td></tr>
+          }echo "</td><td>Nim</td>        <td> : $siswa[nis]</td></tr>
           <tr><td>Nama</td>               <td> : $siswa[nama_lengkap]</td></tr>          
           <tr><td>Kelas</td>              <td> : $kelas[nama]</td></tr>
           <tr><td>alamat</td>             <td> : $siswa[alamat]</td></tr>
@@ -512,11 +512,11 @@ case "detailprofilsiswa":
        $get_kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$siswa[id_kelas]'");
        $kelas = mysql_fetch_array($get_kelas);
 
-      echo"<br><b class='judul'>Detail Siswa</b><br><p class='garisbawah'></p>
+      echo"<br><b class='judul'>Detail Mahasiswa</b><br><p class='garisbawah'></p>
        <table>
              <tr><td rowspan='14'>";if ($siswa[foto]!=''){
               echo "<img src='foto_siswa/medium_$siswa[foto]'>";
-          }echo "</td><td>Nis</td>        <td> : $siswa[nis]</td></tr>
+          }echo "</td><td>Nim</td>        <td> : $siswa[nis]</td></tr>
           <tr><td>Nama</td>               <td> : $siswa[nama_lengkap]</td></tr>
           <tr><td>Kelas</td>              <td> : $kelas[nama]</td></tr>
           <tr><td>alamat</td>             <td> : $siswa[alamat]</td></tr>

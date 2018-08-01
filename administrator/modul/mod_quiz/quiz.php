@@ -95,7 +95,7 @@ switch($_GET[act]){
           <input type=button class='button blue' value='Tambah Topik' onclick=\"window.location.href='?module=quiz&act=tambahtopikquiz';\">";
 
         echo "<br><br><table id='table1' class='gtable sortable'><thead>
-          <tr><th>no</th><th>judul</th><th>kelas</th><th>pelajaran</th><th>tgl buat</th><th>pembuat</th><th>waktu</th><th>Info</th><th>terbit</th><th>aksi</th></tr></thead>";
+          <tr><th>no</th><th>judul</th><th>kelas</th><th>mata kuliah</th><th>tgl buat</th><th>pembuat</th><th>waktu</th><th>Info</th><th>terbit</th><th>aksi</th></tr></thead>";
         
         $tampil_topik = mysql_query("SELECT * FROM topik_quiz ORDER BY id_kelas");
         
@@ -199,7 +199,7 @@ switch($_GET[act]){
         if (!empty($cek_mapel)){
             echo"<br><b class='judul'>Tugas / Quiz</b><br><p class='garisbawah'></p>
             <table>
-            <tr><th>No</th><th>Mata Pelajaran</th><th>Aksi</th></tr>";
+            <tr><th>No</th><th>Mata Kuliah</th><th>Aksi</th></tr>";
             $no=1;
             while ($t=mysql_fetch_array($mapel)){                
                 echo "<tr><td>$no</td>
@@ -211,7 +211,7 @@ switch($_GET[act]){
             }
             echo"</table>";
         }else{
-            echo "<script>window.alert('Belum ada mata pelajaran di kelas anda.');
+            echo "<script>window.alert('Belum ada mata kuliah di kelas anda.');
                     window.location=(href='media.php?module=home')</script>";
         }
     }
@@ -1219,7 +1219,7 @@ case "tambahtopikquiz":
                                           echo"<option value='".$row[id_kelas]."'>".$row[nama]."</option>";
                                           }
                                           echo"</select></dd>
-    <dt><label>Pelajaran</label></dt>          <dd> <div id='pelajaran'></div></dd>
+    <dt><label>Mata Kuliah</label></dt>          <dd> <div id='pelajaran'></div></dd>
     <dt><label>Waktu pengerjaan</label></dt>   <dd> <input type=text name='waktu' size='10'>
                                                     <small>Dalam Menit</small></dd>
     <dt><label>Info</label></dt>              <dd> <textarea name='info' id='wysiwyg' class='medium' rows='6'></textarea></td></tr>
@@ -1248,7 +1248,7 @@ case "tambahtopikquiz":
                                           }
                                           }
                                           echo"</select></dd>
-    <dt><label>Pelajaran</label></dt>           <dd> <div id='pelajaran'></div></dd>
+    <dt><label>Mata Kuliah</label></dt>           <dd> <div id='pelajaran'></div></dd>
     <dt><label>Lama pengerjaan</label></dt>   <dd> <input type=text name='waktu' size='10'><small>Dalam Menit</small></dd>
     <dt><label>Info Quiz</label></dt>                <dd> <textarea name='info' id='wysiwyg' class='medium' rows='6'></textarea></dd>
     <dt><label>Terbit</label></dt>             <dd> <label><input type=radio name='terbit' value='Y'>Y</input></label>
@@ -1288,7 +1288,7 @@ case "edittopikquiz":
                                           echo"<option value='".$row[id_kelas]."'>".$row[nama]."</option>";
                                           }
                                           echo"</select></dd>
-    <dt><label>Pelajaran</label></dt>         <dd>: <select id='pelajaran' name='id_matapelajaran'>
+    <dt><label>Mata Kuliah</label></dt>         <dd>: <select id='pelajaran' name='id_matapelajaran'>
                                           <option value='".$p[id_matapelajaran]."' selected>".$p[nama]."</option>
                                           </select></dd>
     <dt><label>Waktu Pengerjaan</label></dt>   <dd>: <input type=text name='waktu' size='10' value='$waktu'>
@@ -1335,7 +1335,7 @@ case "edittopikquiz":
                                           }
                                           }
                                           echo"</select></dd>
-    <dt><label>Pelajaran</label></dt>           <dd>: <select id='pelajaran' name='id_matapelajaran'>
+    <dt><label>Mata Kuliah</label></dt>           <dd>: <select id='pelajaran' name='id_matapelajaran'>
                                           <option value='".$p[id_matapelajaran]."' selected>".$p[nama]."</option>
                                           </select></dd>
     <dt><label>Lama Pengerjaan</label></dt>    <dd>: <input type=text name='waktu' size='10' value='$waktu'><small>Dalam Menit</small></dd>
@@ -1392,7 +1392,7 @@ case "daftartopik":
               echo"</table>
                     <p class='garisbawah'></p><input type=button class='tombol' value='Kembali' onclick=self.history.back()>";
         }else{
-            echo "<script>window.alert('Belum ada Tugas atau Quiz di mata pelajaran ini.');
+            echo "<script>window.alert('Belum ada Tugas atau Quiz di mata kuliah ini.');
                     window.location=(href='media.php?module=quiz')</script>";
         }
     }
@@ -1434,7 +1434,7 @@ case "daftarnilai":
               echo"</table>
                    <p class='garisbawah'></p><input type=button class='tombol' value='Kembali' onclick=self.history.back()>";
         }else{
-            echo "<script>window.alert('Belum ada Tugas atau Quiz di mata pelajaran ini, jadi tidak ada nilai.');
+            echo "<script>window.alert('Belum ada Tugas atau Quiz di mata kuliah ini, jadi tidak ada nilai.');
                     window.location=(href='media.php?module=nilai')</script>";
         }
     }
@@ -1588,7 +1588,7 @@ case "infokerjakan":
             1. Pastikan koneksi anda terjamin dan bagus, misalnya Warnet.<br>
             2. Jika menggunakan Modem, pastikan menggunakan operator yang handal.<br>
             3. Pilih browser yang suport dengan Elearning SMP Muhdella yaitu Mozilla Firefox.<br>
-            4. Jika mati lampu hubungi Pengajar Mata Pelajaran terkait untuk bisa Ujian Kembali.</h3><br>";
+            4. Jika mati lampu hubungi Pengajar Mata kuliah terkait untuk bisa Ujian Kembali.</h3><br>";
         echo"<p class='garisbawah'></p>
             <input type=submit class='tombol' value='Mulai Mengerjakan' onclick='window.location.reload()'>
             <input type=button class='tombol' value='Kembali' onclick=self.history.back()>";
@@ -1827,7 +1827,7 @@ case "daftarquizesay":
               <dl class='inline'>
               <dt><label>Judul</label></dt>           <dd>: $t[judul]</dd>
               <dt><label>Kelas</label></dt>           <dd>: $k[nama]</dd>
-              <dt><label>Mata Pelajaran</label></dt>  <dd>: $p[nama]</dd>
+              <dt><label>Mata Kuliah</label></dt>  <dd>: $p[nama]</dd>
               </dl></fieldset></form>";
         echo "<input class='button blue' type=button value='Tambah Quiz Esay' onclick=\"window.location.href='?module=quiz&act=buatquizesay&id=$jq[id_tq]';\">
               <input class='button blue' type=button value=Kembali onclick=\"window.location.href='?module=quiz';\">";
@@ -1920,7 +1920,7 @@ case "daftarquizpilganda":
               <dl class='inline'>
               <dt><label>Judul</label></dt>          <dd>: $t[judul]</dd>
               <dt><label>Kelas</label></dt>          <dd>: $k[nama]</dd>
-              <dt><label>Mata Pelajaran</label></dt> <dd>: $p[nama]</dd></dl></fieldset></form>";
+              <dt><label>Mata Kuliah</label></dt> <dd>: $p[nama]</dd></dl></fieldset></form>";
         echo "<input type=button class='button blue' value='Tambah Quiz Pilihan ganda' onclick=\"window.location.href='?module=quiz&act=buatquizpilganda&id=$jq[id_tq]';\">
               <input type=button class='button blue' value=Kembali onclick=\"window.location.href='?module=quiz';\">";
     echo "<br><br><table id='table1' class='gtable sortable'>";
@@ -1978,7 +1978,7 @@ case "daftarquizpilganda":
               <dl class='inline'>
               <dt><label>Judul</label></dt>          <dd>: $t[judul]</dd>
               <dt><label>Kelas</label></dt>          <dd>: $k[nama]</dd>
-              <dt><label>Mata Pelajaran</label></dt> <dd>: $p[nama]</dd></dl></fieldset></form>";
+              <dt><label>Mata Kuliah</label></dt> <dd>: $p[nama]</dd></dl></fieldset></form>";
         echo "<input type=button class='button blue' value='Tambah Quiz Pilihan ganda' onclick=\"window.location.href='?module=quiz&act=buatquizpilganda&id=$jq[id_tq]';\">
               <input type=button class='button blue' value=Kembali onclick=\"window.location.href='?module=quiz';\">";
 

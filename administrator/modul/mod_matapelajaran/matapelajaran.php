@@ -55,10 +55,10 @@ switch($_GET[act]){
   default:
     if ($_SESSION[leveluser]=='admin'){
       $tampil_pelajaran = mysql_query("SELECT * FROM mata_pelajaran ORDER BY id_kelas");
-      echo "<h2>Manajemen Mata Pelajaran</h2><hr>
-          <input class='button blue' type=button value='Tambah mata pelajaran' onclick=\"window.location.href='?module=matapelajaran&act=tambahmatapelajaran';\">";
+      echo "<h2>Manajemen Mata Kuliah</h2><hr>
+          <input class='button blue' type=button value='Tambah mata kuliah' onclick=\"window.location.href='?module=matapelajaran&act=tambahmatapelajaran';\">";
           echo "<br><br><table id='table1' class='gtable sortable'><thead>
-          <tr><th>No</th><th>Id Mapel</th><th>Nama</th><th>Kelas</th><th>Pengajar</th><th>Deskripsi</th><th>Aksi</th></tr></thead>";
+          <tr><th>No</th><th>Id Mata Kuliah</th><th>Nama</th><th>Kelas</th><th>Dosen Pengajar</th><th>Deskripsi</th><th>Aksi</th></tr></thead>";
     $no=1;
     while ($r=mysql_fetch_array($tampil_pelajaran)){
        echo "<tr><td>$no</td>
@@ -95,7 +95,7 @@ switch($_GET[act]){
   $tampil_pelajaran = mysql_query("SELECT * FROM mata_pelajaran WHERE id_pengajar = '$_SESSION[idpengajar]'");
   $cek_mapel = mysql_num_rows($tampil_pelajaran);
   if (!empty($cek_mapel)){
-    echo"<h2>Mata Pelajaran Yang Anda Ampu</h2><hr>
+    echo"<h2>Mata Kuliah Yang Anda Ampu</h2><hr>
     <input type=button class='button blue' value='Tambah' onclick=\"window.location.href='?module=matapelajaran&act=tambahmatapelajaran';\">";
     echo "<br><br><table id='table1' class='gtable sortable'><thead>
           <tr><th>No</th><th>Nama</th><th>Kelas</th><th>Pengajar</th><th>Deskripsi</th><th>Aksi</th></tr></thead>";
@@ -128,7 +128,7 @@ switch($_GET[act]){
     }
     echo "</table>";
         }else{
-            echo "<script>window.alert('Tidak ada mata pelajaran yang anda ampu, Kembali ke home untuk menambah mata pelajaran yang diampu');
+            echo "<script>window.alert('Tidak ada mata kuliah yang anda ampu, Kembali ke home untuk menambah mata kuliah yang diampu');
             window.location=(href='?module=home')</script>";
         }
     }
@@ -136,7 +136,7 @@ switch($_GET[act]){
         $siswa = mysql_query("SELECT * FROM siswa WHERE id_siswa = $_SESSION[idsiswa]");
         $data_siswa = mysql_fetch_array($siswa);
         $tampil_pelajaran = mysql_query("SELECT * FROM mata_pelajaran WHERE id_kelas = '$data_siswa[id_kelas]'");
-        echo"<br><b class='judul'>Daftar Mata Pelajaran di Kelas Anda</b><br><p class='garisbawah'></p>";
+        echo"<br><b class='judul'>Daftar Mata Kuliah di Kelas Anda</b><br><p class='garisbawah'></p>";
         echo "<table>
           <tr><th>No</th><th>Nama</th><th>Pengajar</th><th>Deskripsi</th></tr>";
         $no=1;
@@ -163,9 +163,9 @@ case "tambahmatapelajaran":
     if ($_SESSION[leveluser]=='admin'){
         echo "<form method=POST action='$aksi?module=matapelajaran&act=input_matapelajaran'>
           <fieldset>
-          <legend>Tambah Mata Pelajaran</legend>
+          <legend>Tambah Mata Kuliah</legend>
           <dl class='inline'>
-          <dt><label>Id Matapelajaran</label></dt>     <dd>: <input type=text name='id_matapelajaran' size=10></dd>
+          <dt><label>Id Mata kuliah</label></dt>     <dd>: <input type=text name='id_matapelajaran' size=10></dd>
           <dt><label>Nama</label></dt>                <dd>: <input type=text name='nama' size=30></dd>
           <dt><label>Kelas</label></dt>                <dd>: <select name='id_kelas'>
                                                   <option value=0 selected>--pilih--</option>";
@@ -190,7 +190,7 @@ case "tambahmatapelajaran":
     elseif ($_SESSION[leveluser]=='pengajar'){
         echo "<form method=POST name='form_materi' action='$aksi?module=matapelajaran&act=input_matapelajaran_pengajar'>          
           <fieldset>
-          <legend>Mata Pelajaran yang di ampu</legend>
+          <legend>Mata Kuliah yang di ampu</legend>
           <dl class='inline'>
           <dt><label>Kelas </label></dt>             <dd><select name='id_kelas' onChange='showpel()'>
                                           <option value=''>-pilih-</option>";
@@ -221,9 +221,9 @@ case "editmatapelajaran":
           <form method=POST action='$aksi?module=matapelajaran&act=update_matapelajaran'>
           <input type=hidden name=id value='$m[id]'>
           <fieldset>
-          <legend>Edit Mata Pelajaran</legend>
+          <legend>Edit Mata Kuliah</legend>
           <dl class='inline'>
-          <dt><label>Id Matapelajaran</label></dt>     <dd>: <input type=text name='id_matapelajaran' size=10 value='$m[id_matapelajaran]'></dd>
+          <dt><label>Id Mata kuliah</label></dt>     <dd>: <input type=text name='id_matapelajaran' size=10 value='$m[id_matapelajaran]'></dd>
           <dt><label>Nama</label></dt>                 <dd>: <input type=text name='nama' size=30 value='$m[nama]'></dd>
           <dt><label>Kelas</label></dt>                <dd>: <select name='id_kelas'>
                                                   <option value='$k[id_kelas]' selected>$k[nama]</option>";
@@ -255,7 +255,7 @@ case "editmatapelajaran":
         echo "<form method=POST name='form_materi' action='$aksi?module=matapelajaran&act=update_matapelajaran_pengajar'>
           <input type=hidden name=id value='$m[id]'>
           <fieldset>
-          <legend>Edit Mata Pelajaran</legend>
+          <legend>Edit Mata Kuliah</legend>
           <dl class='inline'>
           <dt><label>Kelas </label></dt>             <dd><select name='id_kelas' onChange='showpel()'>
                                           <option value='$k[id_kelas]' selected>$k[nama]</option>";
@@ -277,7 +277,7 @@ case "editmatapelajaran":
 case "detailpelajaran":
     if ($_SESSION[leveluser]=='admin'){
         $detail =mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$_GET[id]'");
-        echo "<div class='information msg'>Detail Mata Pelajaran</div>
+        echo "<div class='information msg'>Detail Mata Kuliah</div>
           <br><table id='table1' class='gtable sortable'><thead>
           <tr><th>No</th><th>Id Mapel</th><th>Nama</th><th>Kelas</th><th>Pengajar</th><th>Deskripsi</th><th>Aksi</th></tr></thead>";
         $no=1;
@@ -314,7 +314,7 @@ case "detailpelajaran":
     </div>";
     }else{
       $detail =mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$_GET[id]'");
-        echo "<span class='judulhead'><p class='garisbawah'>Detail Mata Pelajaran</p></span>
+        echo "<span class='judulhead'><p class='garisbawah'>Detail Mata Kuliah</p></span>
           <table>
           <tr><th>no</th><th>nama</th><th>kelas</th><th>pengajar</th><th>deskripsi</th></tr>";
                     $no=1;

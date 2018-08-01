@@ -67,7 +67,7 @@ else{
 	<div class="container_12 clearfix">
 		<div id="logo" class="grid_5">
 			<!-- replace with your website title or logo -->
-			<a id="site-title" href="dashboard.html"><span>ADMINISTRATOR</span><br><span>E-Learning SMK Negeri 1 Brebes</span></a>
+			<a id="site-title" href="dashboard.html"><span>ADMINISTRATOR</span><br><span>E-Learning STIKes Mitra Husada Medan</span></a>
 		</div>
 
 		<div class="grid_4" id="colorstyle">
@@ -88,7 +88,7 @@ else{
 			echo "Welcome, <a href='#'>Administrator</a>";
                     }
                     elseif ($_SESSION[leveluser]=='pengajar'){
-                        echo "Welcome, <a href='#'>Teacher</a>";
+                        echo "Welcome, <a href='#'>Dosen</a>";
                     }
                     ?>
 		</div>
@@ -105,7 +105,7 @@ if ($_SESSION[leveluser]=='admin'){
 				<li><a href="#">Manajemen Users</a>
 					<ul>
 						<li><a href="?module=admin">Administrator</a></li>
-						<li><a href="?module=admin&act=pengajar">Pengajar</a></li>
+						<li><a href="?module=admin&act=pengajar">Dosen Pengajar</a></li>
 					</ul>
 				</li>
                                 <li><a href="#">Setting</a>
@@ -162,7 +162,7 @@ elseif ($_SESSION[leveluser]=='pengajar'){
 
                             <aside id="sidebar" class="grid_3 pull_9">
                         <div class="box info">
-				<h2>Assalamuallaikum</h2>
+				<h2>Selamat datang</h2>
 				<section>
                                     <SCRIPT language=JavaScript>var d = new Date();
                                     var h = d.getHours();
@@ -210,7 +210,7 @@ elseif ($_SESSION[leveluser]=='pengajar'){
 	<section class="container_12 clearfix">
 		
 		<div class="grid_6 alignright">
-			Copyright &copy; 2011 <a href="#">SMK Negeri 1 Brebes</a>
+			Copyright &copy; 2018 <a href="#">STIKes Mitra Husada Medan</a>
 		</div>
 	</section>
 </footer>

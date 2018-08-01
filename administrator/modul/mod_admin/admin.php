@@ -41,10 +41,10 @@ switch($_GET[act]){
   case "pengajar":
   if ($_SESSION[leveluser]=='admin'){
       $tampil_pengajar = mysql_query("SELECT * FROM pengajar ORDER BY username_login");
-    echo "<h2>Manajemen Pengajar</h2><hr>
-          <input class='button blue' type=button value='Tambah Pengajar' onclick=\"window.location.href='?module=admin&act=tambahpengajar';\">";
+    echo "<h2>Manajemen Dosen Pengajar</h2><hr>
+          <input class='button blue' type=button value='Tambah Dosen' onclick=\"window.location.href='?module=admin&act=tambahpengajar';\">";
           echo "<br><br><table id='table1' class='gtable sortable'><thead>
-          <tr><th>No</th><th>Nip</th><th>Username</th><th>Nama</th><th>Blokir</th><th>Aksi</th></tr></thead>";
+          <tr><th>No</th><th>Nip</th><th>Username</th><th>Nama Dosen</th><th>Blokir</th><th>Aksi</th></tr></thead>";
     $no=1;
     while ($r=mysql_fetch_array($tampil_pengajar)){
        echo "<tr><td>$no</td>
@@ -189,7 +189,7 @@ switch($_GET[act]){
     echo "<form method=POST action=$aksi?module=admin&act=update_pengajar enctype='multipart/form-data'>
           <input type=hidden name=id value='$r[id_pengajar]'>
           <fieldset>
-          <legend>Edit Pengajar</legend>
+          <legend>Edit Dosen Pengajar</legend>
           <dl class='inline'>
           <dt><label>Nip</label></dt>          <dd> : <input type=text name='nip' value='$r[nip]'></dd>
           <dt><label>Nama Lengkap</label></dt> <dd> : <input type=text name='nama_lengkap' size=30 value='$r[nama_lengkap]'></dd>
@@ -340,7 +340,7 @@ case "detailpengajar":
 
     if ($_SESSION[leveluser]=='admin'){
     echo "<form><fieldset>
-          <legend>Detail Pengajar</legend>
+          <legend>Detail Dosen Pengajar</legend>
           <dl class='inline'>
           <dt><label>Nip</label></dt>   <dd> : $r[nip]</dd>
           <dt><label>Nama Lengkap</label></dt> <dd> : $r[nama_lengkap]</dd>
@@ -384,7 +384,7 @@ case "detailpengajar":
     }
     elseif ($_SESSION[leveluser]=='pengajar'){
         echo "<form><fieldset>
-          <legend>Detail Pengajar</legend>
+          <legend>Detail Dosen Pengajar</legend>
           <dl class='inline'>
           <table id='table1' class='gtable sortable'>
           <tr><td rowspan='13'>";if ($r[foto]!=''){

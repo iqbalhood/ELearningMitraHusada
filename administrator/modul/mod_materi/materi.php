@@ -274,6 +274,12 @@ case "daftarmateri":
              elseif ($ekstensi == 'docx'){
                  echo "<td rowspan='5'><img src='images/doc.png'></td>";
              }
+             elseif ($ekstensi == 'mp3'){
+                echo "<td rowspan='5'><img src='images/mp3.jpg'></td>";
+            }
+            elseif ($ekstensi == 'mp4'){
+                echo "<td rowspan='5'><img src='images/mp4.png'></td>";
+            }
              }else{
                  echo "<td rowspan='5'><img src='images/kosong.png'></td>";
              }
@@ -324,7 +330,8 @@ case "tambahmateri":
                                           }                                          
                                           echo"</select></dd>
     <dt><label>Pelajaran</label></dt>          <dd><div id='pelajaran'></div></dd>
-    <dt><label>File</label></dt>               <dd><input type=file name='fupload' size=40></dd>
+    <dt><label>File</label></dt>               <dd><input type=file name='fupload' size=40>
+    <small>Max size 5mb</small></dd>
     </dl>
           
           <p align=center><input class='button blue' type=submit value=Simpan>
@@ -349,7 +356,8 @@ case "tambahmateri":
                                           }
                                           echo"</select></dd>
     <dt><label>Pelajaran</label></dt>          <dd> <div id='pelajaran_pengajar'></div></dd>
-    <dt><label>File</label></dt>              <dd> <input type=file name='fupload' size=35></dd>
+    <dt><label>File</label></dt>              <dd> <input type=file name='fupload' size=35>
+    <small>Max size 5mb</small></dd> 
     <p align=center><input class='button blue' type=submit value=Simpan>
                       <input class='button blue' type=button value=Batal onclick=\"window.location.href='?module=materi';\"></p>
     </dl></fieldset></form>";
@@ -384,12 +392,13 @@ case "editmateri":
                                           <option value='".$p[id_matapelajaran]."' selected>".$p[nama]."</option>
                                           </select></dd>
     <dt><label>File</label></dt>                <dd>: $m[nama_file]</dd>
-    <dt><label>Ganti File</label></dt>         <dd>: <input type=file name='fupload' size=40>
-                                                     <small>Apabila file tidak diganti, di kosongkan saja</small></dd>
+    <dt><label>Ganti File </label></dt>         <dd>: <input type=file name='fupload' size=40>
+                                                     <small>Max size 5mb, Apabila file tidak diganti, di kosongkan saja</small></dd>
     </dl>
 
           <p align=center><input class='button blue' type=submit value=Update>
-          <input class='button blue' type=button value=Batal onclick=self.history.back()></p>
+          <input class='button blue' type=button value=Batal onclick=self.history.back()>
+          <input type=button class='button small white' value='Teruskan materi ke kelas lain' onclick=\"window.location.href='?module=materi&act=teruskanmateri&id=$m[id_file]';\"></input></p>
 
           </fieldset></form>";
     }
@@ -420,9 +429,81 @@ case "editmateri":
                                           </select></dd>
     <dt><label>File</label></dt>              <dd>: $m[nama_file]</dd>
     <dt><label>Ganti File</label></dt>        <dd>: <input type=file name='fupload' size=40>
-    <small>Apabila file tidak diganti, di kosongkan saja</small></dd>
+    <small>Max size 5mb, Apabila file tidak diganti, di kosongkan saja</small></dd>
     <p align=center><input class='button blue' type=submit value=Simpan>
-                      <input class='button blue' type=button value=Batal onclick=self.history.back()></p>
+                      <input class='button blue' type=button value=Batal onclick=self.history.back()>
+                      <input type=button class='button small white' value='Teruskan materi ke kelas lain' onclick=\"window.location.href='?module=materi&act=teruskanmateri&id=$m[id_file]';\"></input></p>
+    </dl></fieldset></form>";
+    }
+    break;
+
+    case "teruskanmateri":
+    if ($_SESSION[leveluser]=='admin'){
+    $edit=mysql_query("SELECT * FROM file_materi WHERE id_file = '$_GET[id]'");
+    $m=mysql_fetch_array($edit);
+    $isikelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$m[id_kelas]'");
+    $k=mysql_fetch_array($isikelas);
+    $pelajaran = mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$m[id_matapelajaran]'");
+    $p=mysql_fetch_array($pelajaran);
+
+    echo "
+    <form name='form_materi' method=POST action='$aksi?module=materi&act=teruskan_materi' enctype='multipart/form-data'>
+    <input type=hidden name=id value='$m[id_file]'>
+    <fieldset>
+     <legend>Teruskan Materi Untuk kelas lain</legend>
+     <dl class='inline'>
+    <dt><label>Judul</label></dt>             <dd>: <input type=text name='judul' value='$m[judul]' style='pointer-events: none;></dd>
+    <dt><label>Kelas</label></dt>               <dd>: <select name='id_kelas' onChange='showpel()'>
+                                          <option value='".$k[id_kelas]."' selected>".$k[nama]."</option>";
+                                          $pilih="SELECT * FROM kelas ORDER BY nama";
+                                          $query=mysql_query($pilih);
+                                          while($row=mysql_fetch_array($query)){
+                                          echo"<option value='".$row[id_kelas]."'>".$row[nama]."</option>";
+                                          }
+                                          echo"</select></dd>
+    <dt><label>Pelajaran</label></dt>           <dd>: <select id='pelajaran' name='id_matapelajaran'>
+                                          <option value='".$p[id_matapelajaran]."' selected>".$p[nama]."</option>
+                                          </select></dd>
+    <dt><label>File</label></dt>                <dd>: <input type=text name='nama_file' value='$m[nama_file]' style='pointer-events: none;'></dd>
+    
+    </dl>
+
+          <p align=center><input class='button blue' type=submit value=Update>
+          <input class='button blue' type=button value=Batal onclick=self.history.back()>
+          </p>
+
+          </fieldset></form>";
+    }
+    else{
+    $edit=mysql_query("SELECT * FROM file_materi WHERE id_file = '$_GET[id]'");
+    $m=mysql_fetch_array($edit);
+    $isikelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$m[id_kelas]'");
+    $k=mysql_fetch_array($isikelas);
+    $pelajaran = mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$m[id_matapelajaran]'");
+    $p=mysql_fetch_array($pelajaran);
+
+    echo "<form name='form_materi_pengajar' method=POST action='$aksi?module=materi&act=teruskan_materi' enctype='multipart/form-data'>
+    <input type=hidden name=id value='$m[id_file]'>
+    <fieldset>
+    <legend>Teruskan Materi Untuk kelas lain</legend>
+    <dl class='inline'>
+    <dt><label>Judul</label></dt>              <dd>: <input type=text name='judul' value='$m[judul]' size=50 style='pointer-events: none;'></dd>
+    <dt><label>Kelas</label></dt>              <dd>: <select name='id_kelas' onChange='showpel_pengajar()'>
+                                          <option value='".$k[id_kelas]."' selected>".$k[nama]."</option>";
+                                          $pilih="SELECT * FROM kelas WHERE id_pengajar = '$_SESSION[idpengajar]'";
+                                          $query=mysql_query($pilih);
+                                          while($row=mysql_fetch_array($query)){
+                                          echo"<option value='".$row[id_kelas]."'>".$row[nama]."</option>";
+                                          }
+                                          echo"</select></dd>
+    <dt><label>Pelajaran</label></dt>          <dd>: <select id='pelajaran_pengajar' name='id_matapelajaran'>
+                                          <option value='".$p[id_matapelajaran]."' selected>".$p[nama]."</option>
+                                          </select></dd>
+    <dt><label>File</label></dt>              <dd>: <input type=text name='nama_file' value='$m[nama_file]' style='pointer-events: none;'></dd>
+   
+    <p align=center><input class='button blue' type=submit value=Simpan>
+                      <input class='button blue' type=button value=Batal onclick=self.history.back()>
+                      </p>
     </dl></fieldset></form>";
     }
     break;

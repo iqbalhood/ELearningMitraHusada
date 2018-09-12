@@ -60,7 +60,7 @@ switch($_GET[act]){
       echo "<h2>Manajemen Kelas</h2><hr>
           <input type=button class='button blue' value='Tambah Kelas' onclick=\"window.location.href='?module=kelas&act=tambahkelas';\">";
       echo "<br><br><table id='table1' class='gtable sortable'><thead>
-          <tr><th>No</th><th>Id kelas</th><th>Kelas</th><th>Dosen Wali</th><th>Kordinator kelas</th><th>Aksi</th></tr></thead>";
+          <tr><th>No</th><th>Id kelas</th><th>Kelas</th><th>Dosen Wali</th><th>Komting</th><th>Aksi</th></tr></thead>";
     $no=1;
     while ($r=mysql_fetch_array($tampil)){       
        echo "<tr><td>$no</td>
@@ -101,7 +101,7 @@ switch($_GET[act]){
          $ketemu=mysql_num_rows($tampil_kelas);
          if (!empty($ketemu)){
                 echo "<br><br><table id='table1' class='gtable sortable'><thead>
-                <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th><th>Kordinator Kelas</th><th>Aksi</th></tr></thead>";
+                <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th><th>Komting</th><th>Aksi</th></tr></thead>";
 
                 $no=1;
                 while ($r=mysql_fetch_array($tampil_kelas)){
@@ -145,7 +145,7 @@ switch($_GET[act]){
         $kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$data_siswa[id_kelas]'");
 
         echo "<table>
-          <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th><th>kordinator Kelas</th><th>Aksi</th></tr>";
+          <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th><th>komting</th><th>Aksi</th></tr>";
         $no=1;
         while ($r=mysql_fetch_array($kelas)){
        echo "<tr>
@@ -195,7 +195,7 @@ switch($_GET[act]){
                                       while($r=mysql_fetch_array($tampil)){
                                       echo "<option value=$r[id_pengajar]>$r[nama_lengkap]</option>";
                                       }echo "</select></dd>
-          <dt><label>Kordinator Kelas</label></dt>     <dd> : <select name='id_siswa'>
+          <dt><label>Komting</label></dt>     <dd> : <select name='id_siswa'>
                                       <option value=0 selected>-- Pilih Siswa --</option>";
                                       $tampil_siswa=mysql_query("SELECT * FROM siswa ORDER BY nama_lengkap");
                                       while($s=mysql_fetch_array($tampil_siswa)){
@@ -219,7 +219,7 @@ switch($_GET[act]){
                                       while($r=mysql_fetch_array($tampilk)){
                                             echo "<option value=$r[id_kelas]>$r[nama]</option>";
                                       }echo"</select></dd>
-          <dt><label>Kordinator Kelas</label></dt>  <dd> <div id='siswa'></div></dd>
+          <dt><label>Komting</label></dt>  <dd> <div id='siswa'></div></dd>
           <p align=center><input type=submit class='button blue' value=Simpan>
                             <input type=button class='button blue' value=Batal onclick=self.history.back()></p>
          </dl></fieldset</form>";
@@ -250,7 +250,7 @@ switch($_GET[act]){
                                       while($p=mysql_fetch_array($tampil)){
                                       echo "<option value=$p[id_pengajar]>$p[nama_lengkap]</option>";
                                       }echo "</select></dd>
-          <dt><label>Kordinator Kelas</label></dt>    <dd> : <select name='id_siswa'>
+          <dt><label>Komting</label></dt>    <dd> : <select name='id_siswa'>
                                       <option value='$niss[id_siswa]' selected>$niss[nama_lengkap]</option>";
                                       $tampil_siswa=mysql_query("SELECT * FROM siswa ORDER BY nama_lengkap");
                                       while($s=mysql_fetch_array($tampil_siswa)){

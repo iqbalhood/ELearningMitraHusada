@@ -60,7 +60,7 @@ else{
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/switcher.js"></script>
 
-<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 </head>
 <body onLoad="startclock()">
 <header id="top">
@@ -71,15 +71,8 @@ else{
 		</div>
 
 		<div class="grid_4" id="colorstyle">
-			<div>Change Color</div>
-			<a href="#" rel="blue"></a>
-			<a href="#" rel="green"></a>
-			<a href="#" rel="red"></a>
-			<a href="#" rel="purple"></a>
-			<a href="#" rel="orange"></a>
-			<a href="#" rel="yellow"></a>
-			<a href="#" rel="black"></a>
-			<a href="#" rel="gray"></a>
+			<div></div>
+			
 		</div>
 
 		<div id="userinfo" class="grid_3">
@@ -106,6 +99,8 @@ if ($_SESSION[leveluser]=='admin'){
 					<ul>
 						<li><a href="?module=admin">Administrator</a></li>
 						<li><a href="?module=admin&act=pengajar">Dosen Pengajar</a></li>
+						<li><a href="?module=admin&act=upload_dosen">Upload data Dosen</a></li>
+						<li><a href="?module=admin&act=upload_mahasiswa">Upload data Mahasiswa</a></li>
 					</ul>
 				</li>
                                 <li><a href="#">Setting</a>
@@ -210,7 +205,7 @@ elseif ($_SESSION[leveluser]=='pengajar'){
 	<section class="container_12 clearfix">
 		
 		<div class="grid_6 alignright">
-			Copyright &copy; 2018 <a href="#">STIKes Mitra Husada Medan</a>
+			Copyright &copy; 2018 <a href="http://mitrahusada.ac.id">STIKes Mitra Husada Medan</a>
 		</div>
 	</section>
 </footer>

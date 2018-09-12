@@ -27,7 +27,7 @@ function validasi(form){
 <meta name="Author" content="AIT"/>
 <meta http-equiv="imagetoolbar" content="no"/>
 <title>.::Login E-Learning::.</title>
-<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 <link rel="stylesheet" href="css_login/reset.css" type="text/css"/>
 <link rel="stylesheet" href="css_login/screen.css" type="text/css"/>
 
@@ -39,7 +39,7 @@ function validasi(form){
 
 </head>
 
-<body class="no-side">
+<body class="no-side" background="mitra_husada_front.jpg">
 
 <div class="login-box">
 <div class="login-border">

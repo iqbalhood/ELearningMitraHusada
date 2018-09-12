@@ -63,6 +63,53 @@ switch($_GET[act]){
   }
   break;
 
+  case "upload_dosen":
+  if ($_SESSION[leveluser]=='admin'){
+    echo "<h2>Manajemen Upload Data Dosen</h2><hr>
+          ";
+          echo "<form name='form_materi' method=POST action='$aksi?module=admin&act=upload_dosen' enctype='multipart/form-data'>
+          <fieldset>
+          <legend>Upload Data Dosen</legend>
+          <dl class='inline'>
+         
+         <dt><label>File csv</label></dt>          <dd><div id='pelajaran'></div></dd>
+         <dt><label>File</label></dt>               <dd><input type=file name='file' size=40></dd>
+         </dl>
+               
+               <p align=center><input class='button blue' type=submit value=Upload name='import'>
+               <input class='button blue' type=button value=Batal onclick=self.history.back()></p>
+               
+               </fieldset></form>";
+  }else{
+        echo "<link href=../css/style.css rel=stylesheet type=text/css>";
+        echo "<div class='error msg'>Anda tidak berhak mengakses halaman ini.</div>";
+  }
+  break;
+
+  case "upload_mahasiswa":
+  if ($_SESSION[leveluser]=='admin'){
+      $tampil_pengajar = mysql_query("SELECT * FROM pengajar ORDER BY username_login");
+    echo "<h2>Manajemen Upload Data Mahasiswa</h2><hr>
+          ";
+          echo "<form name='form_materi' method=POST action='$aksi?module=admin&act=uploaddbmahasiswa' enctype='multipart/form-data'>
+          <fieldset>
+          <legend>Upload Data Mahasiswa</legend>
+          <dl class='inline'>
+         
+         <dt><label>File csv</label></dt>          <dd><div id='pelajaran'></div></dd>
+         <dt><label>File</label></dt>               <dd><input type=file name='fupload' size=40></dd>
+         </dl>
+               
+               <p align=center><input class='button blue' type=submit value=Upload>
+               <input class='button blue' type=button value=Batal onclick=self.history.back()></p>
+               
+               </fieldset></form>";
+  }else{
+        echo "<link href=../css/style.css rel=stylesheet type=text/css>";
+        echo "<div class='error msg'>Anda tidak berhak mengakses halaman ini.</div>";
+  }
+  break;
+
   case "tambahadmin":
     if ($_SESSION[leveluser]=='admin'){
     echo "<form class='uniform' method=POST action='$aksi?module=admin&act=input_admin'>

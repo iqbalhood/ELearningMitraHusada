@@ -19,7 +19,7 @@ if ($module=='materi' AND $act=='input_materi'){
   $tipe_file   = $_FILES['fupload']['type'];
   $direktori_file = "../../../files_materi/$nama_file";
 
-  $extensionList = array("zip", "rar", "doc", "docx", "ppt", "pptx", "pdf");
+  $extensionList = array("zip", "rar", "doc", "docx", "ppt", "pptx", "pdf", "mp3", "mp4");
   $pecah = explode(".", $nama_file);
   $ekstensi = $pecah[1];
 
@@ -126,7 +126,7 @@ elseif($module=='materi' AND $act=='edit_materi'){
   $tipe_file   = $_FILES['fupload']['type'];
   $direktori_file = "../../../files_materi/$nama_file";
 
-  $extensionList = array("zip", "rar", "doc", "docx", "ppt", "pptx", "pdf");
+  $extensionList = array("zip", "rar", "doc", "docx", "ppt", "pptx", "pdf", "mp3", "mp4");
   $pecah = explode(".", $nama_file);
   $ekstensi = $pecah[1];
 
@@ -244,6 +244,162 @@ elseif($module=='materi' AND $act=='edit_materi'){
   }
 }
 
+
+elseif($module=='materi' AND $act=='teruskan_materi'){
+    $lokasi_file = $_FILES['fupload']['tmp_name'];
+    $nama_file   = $_FILES['fupload']['name'];
+    $tipe_file   = $_FILES['fupload']['type'];
+    $direktori_file = "../../../files_materi/$nama_file";
+  
+    $extensionList = array("zip", "rar", "doc", "docx", "ppt", "pptx", "pdf", "mp3", "mp4");
+    $pecah = explode(".", $nama_file);
+    $ekstensi = $pecah[1];
+  
+  
+    //cari pembuat
+    $pelajaran = mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$_POST[id_matapelajaran]'");
+    $data_mapel = mysql_fetch_array($pelajaran);
+    $pengajar = mysql_query("SELECT * FROM pengajar WHERE id_pengajar = '$data_mapel[id_pengajar]'");
+    $cek_pengajar = mysql_num_rows($pengajar);
+    if(!empty($cek_pengajar)){
+    // Apabila ada file yang diupload
+    if (!empty($lokasi_file)){
+  
+      if (file_exists($direktori_file)){
+              echo "<script>window.alert('Nama file sudah ada, mohon diganti dulu');
+              window.location=(href='../../media_admin.php?module=materi')</script>";}
+              else{
+                  if(!in_array($ekstensi, $extensionList)){
+                      echo "<script>window.alert('Tipe File tidak di ijinkan.');
+                      window.location=(href='../../media_admin.php?module=materi')</script>";
+                  }else{
+                      $cek = mysql_query("SELECT * FROM file_materi WHERE id_file = '$_POST[id]'");
+                      $r = mysql_fetch_array($cek);
+                      if(!empty($r[nama_file])){
+                      $file = "../../../files_materi/$r[nama_file]";
+                      unlink($file);
+  
+                      UploadFile($nama_file);
+                      mysql_query("INSERT INTO file_materi(judul,
+                                    id_kelas,
+                                    id_matapelajaran,
+                                    nama_file,
+                                    tgl_posting,
+                                    pembuat)
+                            VALUES('$_POST[judul]',
+                                   '$_POST[id_kelas]',
+                                   '$_POST[id_matapelajaran]',
+                                   '$_POST[nama_file]',
+                                   '$tgl_sekarang',
+                                    '$data_mapel[id_pengajar]')");
+                    header('location:../../media_admin.php?module='.$module);
+                      }else{
+                          UploadFile($nama_file);
+                          mysql_query("INSERT INTO file_materi(judul,
+                                    id_kelas,
+                                    id_matapelajaran,
+                                    nama_file,
+                                    tgl_posting,
+                                    pembuat)
+                            VALUES('$_POST[judul]',
+                                   '$_POST[id_kelas]',
+                                   '$_POST[id_matapelajaran]',
+                                   '$_POST[nama_file]',
+                                   '$tgl_sekarang',
+                                    '$data_mapel[id_pengajar]')");
+                          header('location:../../media_admin.php?module='.$module);
+                      }
+                  }
+  
+      }
+  
+    }
+    else{
+        mysql_query("INSERT INTO file_materi(judul,
+        id_kelas,
+        id_matapelajaran,
+        nama_file,
+        tgl_posting,
+        pembuat)
+VALUES('$_POST[judul]',
+       '$_POST[id_kelas]',
+       '$_POST[id_matapelajaran]',
+       '$_POST[nama_file]',
+       '$tgl_sekarang',
+        '$data_mapel[id_pengajar]')");
+    header('location:../../media_admin.php?module='.$module);
+    }
+    }else{
+          // Apabila ada file yang diupload
+    if (!empty($lokasi_file)){
+  
+      if (file_exists($direktori_file)){
+              echo "<script>window.alert('Nama file sudah ada, mohon diganti dulu');
+              window.location=(href='../../media_admin.php?module=materi')</script>";}
+              else{
+                  if(!in_array($ekstensi, $extensionList)){
+                      echo "<script>window.alert('Tipe File tidak di ijinkan.');
+                      window.location=(href='../../media_admin.php?module=materi')</script>";
+                  }else{
+                      $cek = mysql_query("SELECT * FROM file_materi WHERE id_file = '$_POST[id]'");
+                      $r = mysql_fetch_array($cek);
+                      if(!empty($r[nama_file])){
+                      $file = "../../../files_materi/$r[nama_file]";
+                      unlink($file);
+  
+                      UploadFile($nama_file);
+                      mysql_query("INSERT INTO file_materi(judul,
+                                    id_kelas,
+                                    id_matapelajaran,
+                                    nama_file,
+                                    tgl_posting,
+                                    pembuat)
+                            VALUES('$_POST[judul]',
+                                   '$_POST[id_kelas]',
+                                   '$_POST[id_matapelajaran]',
+                                   '$_POST[nama_file]',
+                                   '$tgl_sekarang',
+                                    '$_SESSION[leveluser]')");
+                      header('location:../../media_admin.php?module='.$module);
+                      }else{
+                          UploadFile($nama_file);
+                          mysql_query("INSERT INTO file_materi(judul,
+                                    id_kelas,
+                                    id_matapelajaran,
+                                    nama_file,
+                                    tgl_posting,
+                                    pembuat)
+                            VALUES('$_POST[judul]',
+                                   '$_POST[id_kelas]',
+                                   '$_POST[id_matapelajaran]',
+                                   '$_POST[nama_file]',
+                                   '$tgl_sekarang',
+                                    '$_SESSION[leveluser]')");
+                          header('location:../../media_admin.php?module='.$module);
+                      }
+                  }
+  
+      }
+  
+    }
+    else{
+        mysql_query("INSERT INTO file_materi(judul,
+        id_kelas,
+        id_matapelajaran,
+        nama_file,
+        tgl_posting,
+        pembuat)
+VALUES('$_POST[judul]',
+       '$_POST[id_kelas]',
+       '$_POST[id_matapelajaran]',
+       '$_POST[nama_file]',
+       '$tgl_sekarang',
+        '$_SESSION[leveluser]')");
+    header('location:../../media_admin.php?module='.$module);
+    }
+  
+    }
+  }
 
 elseif($module=='materi' AND $act=='hapus'){
   $cek = mysql_query("SELECT * FROM file_materi WHERE id_file = '$_GET[id]'");

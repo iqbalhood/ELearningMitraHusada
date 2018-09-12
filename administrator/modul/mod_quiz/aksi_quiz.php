@@ -29,7 +29,8 @@ if ($module=='quiz' AND $act=='input_topikquiz'){
                                     pembuat,
                                     waktu_pengerjaan,
                                     info,
-                                    terbit)
+                                    terbit,
+                                    tgl_batas)
                             VALUES('$_POST[judul]',
                                    '$_POST[id_kelas]',
                                    '$_POST[id_matapelajaran]',
@@ -37,7 +38,8 @@ if ($module=='quiz' AND $act=='input_topikquiz'){
                                    '$data[id_pengajar]',
                                    '$wpengerjaan',
                                    '$_POST[info]',
-                                   '$_POST[terbit]')");
+                                   '$_POST[terbit]',
+                                   '$_POST[tglbatas]')");
     }else{
         $wpengerjaan = $_POST['waktu'] * 60;
         mysql_query("INSERT INTO topik_quiz(
@@ -89,7 +91,8 @@ elseif($module=='quiz' AND $act=='edit_topikquiz'){
                                         pembuat = '$data[id_pengajar]',
                                         waktu_pengerjaan = '$waktu',
                                         info = '$_POST[info]',
-                                        terbit = '$_POST[terbit]'
+                                        terbit = '$_POST[terbit]',
+                                        tgl_batas = '$_POST[tglbatas]'
                              WHERE id_tq = '$_POST[id]'");
     }else{
         $waktu = $_POST['waktu'] * 60;
@@ -100,7 +103,8 @@ elseif($module=='quiz' AND $act=='edit_topikquiz'){
                                         pembuat = '$_SESSION[leveluser]',
                                         waktu_pengerjaan = '$waktu',
                                         info = '$_POST[info]',
-                                        terbit = '$_POST[terbit]'
+                                        terbit = '$_POST[terbit]',
+                                        tgl_batas = '$_POST[tglbatas]'
                              WHERE id_tq = '$_POST[id]'");
     }
 header('location:../../media_admin.php?module='.$module);
@@ -194,13 +198,13 @@ elseif($module=='quiz' AND $act=='input_quizpilganda'){
                 window.location=(href='../../media_admin.php?module=buatquizpilganda&act=buatquizpilganda&id=$_POST[id]')</script>";
             }else{
                 UploadImage_soal_pilganda($nama_file);
-                mysql_query("INSERT INTO quiz_pilganda(id_tq,pertanyaan,gambar,pil_a,pil_b,pil_c,pil_d,kunci,tgl_buat)
-                   VALUES('$_POST[id]','$_POST[pertanyaan]','$nama_file','$_POST[pila]','$_POST[pilb]','$_POST[pilc]','$_POST[pild]','$_POST[kunci]','$tgl_sekarang')");
+                mysql_query("INSERT INTO quiz_pilganda(id_tq,pertanyaan,gambar,pil_a,pil_b,pil_c,pil_d,pil_e,kunci,tgl_buat)
+                   VALUES('$_POST[id]','$_POST[pertanyaan]','$nama_file','$_POST[pila]','$_POST[pilb]','$_POST[pilc]','$_POST[pild]','$_POST[pile]','$_POST[kunci]','$tgl_sekarang')");
             }
         }
     }else{
-        mysql_query("INSERT INTO quiz_pilganda(id_tq,pertanyaan,pil_a,pil_b,pil_c,pil_d,kunci,tgl_buat)
-                   VALUES('$_POST[id]','$_POST[pertanyaan]','$_POST[pila]','$_POST[pilb]','$_POST[pilc]','$_POST[pild]','$_POST[kunci]','$tgl_sekarang')");
+        mysql_query("INSERT INTO quiz_pilganda(id_tq,pertanyaan,pil_a,pil_b,pil_c,pil_d,pil_e,kunci,tgl_buat)
+                   VALUES('$_POST[id]','$_POST[pertanyaan]','$_POST[pila]','$_POST[pilb]','$_POST[pilc]','$_POST[pild]','$_POST[pile]','$_POST[kunci]','$tgl_sekarang')");
     }          
     header('location:../../media_admin.php?module=daftarquizpilganda&act=daftarquizpilganda&id='.$_POST[id]);
 }
@@ -299,6 +303,7 @@ elseif($module=='quiz' AND $act=='edit_quizpilganda'){
                                            pil_b      = '$_POST[pilb]',
                                            pil_c      = '$_POST[pilc]',
                                            pil_d      = '$_POST[pild]',
+                                           pil_e      = '$_POST[pile]',
                                            kunci      = '$_POST[kunci]',
                                            tgl_buat   = '$tgl_sekarang'
                                         WHERE id_quiz = '$_POST[id]'");
@@ -310,6 +315,7 @@ elseif($module=='quiz' AND $act=='edit_quizpilganda'){
                                            pil_b      = '$_POST[pilb]',
                                            pil_c      = '$_POST[pilc]',
                                            pil_d      = '$_POST[pild]',
+                                           pil_e      = '$_POST[pile]',
                                            kunci      = '$_POST[kunci]',
                                            tgl_buat   = '$tgl_sekarang'
                                         WHERE id_quiz = '$_POST[id]'");
@@ -322,6 +328,7 @@ elseif($module=='quiz' AND $act=='edit_quizpilganda'){
                                            pil_b      = '$_POST[pilb]',
                                            pil_c      = '$_POST[pilc]',
                                            pil_d      = '$_POST[pild]',
+                                           pil_e      = '$_POST[pile]',
                                            kunci      = '$_POST[kunci]',
                                            tgl_buat   = '$tgl_sekarang'
                                         WHERE id_quiz = '$_POST[id]'");

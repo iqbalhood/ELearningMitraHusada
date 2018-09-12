@@ -140,6 +140,37 @@ elseif ($module=='admin' AND $act=='input_pengajar'){
   
 }
 
+// Upload data dosen
+elseif ($module=='admin' AND $act=='upload_dosen'){
+    $conn = mysqli_connect("localhost", "root", "", "dbelearning");
+    if (isset($_POST["import"])) {
+    $fileName = $_FILES["file"]["tmp_name"];
+    
+    if ($_FILES["file"]["size"] > 0) {
+        
+        $file = fopen($fileName, "r");
+        
+        while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
+            $sqlInsert = "INSERT into pengajar (id_pengajar,nip,nama_lengkap,username_login,password_login,level)
+                   values ('" . $column[0] . "','" . $column[1] . "','" . $column[2] . "','" . $column[3] . "','" . $column[4] . "','" . $column[5] . "')";
+            $result = mysqli_query($conn, $sqlInsert);
+            
+            if (! empty($result)) {
+                $type = "success";
+                $message = "CSV Data Imported into the Database";
+            } else {
+                $type = "error";
+                $message = "Problem in Importing CSV Data";
+            }
+        }
+    }
+}
+    
+          header('location:../../media_admin.php?module='.$module);
+    
+    
+  }
+
 //upadate pengajar
 
 elseif ($module=='admin' AND $act=='update_pengajar'){

@@ -4,7 +4,7 @@
 <title>Administrator</title>
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 <!--[if lte IE 8]>
 <script type="text/javascript" src="js/html5.js"></script>
 <![endif]-->

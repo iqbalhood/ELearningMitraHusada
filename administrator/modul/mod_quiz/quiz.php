@@ -95,7 +95,7 @@ switch($_GET[act]){
           <input type=button class='button blue' value='Tambah Topik' onclick=\"window.location.href='?module=quiz&act=tambahtopikquiz';\">";
 
         echo "<br><br><table id='table1' class='gtable sortable'><thead>
-          <tr><th>no</th><th>judul</th><th>kelas</th><th>mata kuliah</th><th>tgl buat</th><th>pembuat</th><th>waktu</th><th>Info</th><th>terbit</th><th>aksi</th></tr></thead>";
+          <tr><th>no</th><th>judul</th><th>kelas</th><th>mata kuliah</th><th>tgl buat</th><th>tgl Akhir pengerjaan</th><th>pembuat</th><th>waktu</th><th>Info</th><th>terbit</th><th>aksi</th></tr></thead>";
         
         $tampil_topik = mysql_query("SELECT * FROM topik_quiz ORDER BY id_kelas");
         
@@ -103,6 +103,7 @@ switch($_GET[act]){
     while ($r=mysql_fetch_array($tampil_topik)){
       $wpengerjaan = $r[waktu_pengerjaan] / 60;
       $tgl_buat   = tgl_indo($r[tgl_buat]);
+      $tgl_akhir   = tgl_indo($r[tgl_batas]);
        echo "<tr><td>$no</td>
              <td>$r[judul]</td>";
              $kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$r[id_kelas]'");
@@ -122,7 +123,7 @@ switch($_GET[act]){
              }else{
                  echo"<td></td>";
              }
-             echo"<td>$tgl_buat</td>";
+             echo"<td>$tgl_buat</td><td>$tgl_akhir</td>";
              $pelajaran2 = mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$r[id_matapelajaran]'");
              $p2=mysql_fetch_array($pelajaran2);
              $pembuat = mysql_query("SELECT * FROM pengajar WHERE id_pengajar = '$p2[id_pengajar]'");
@@ -151,13 +152,14 @@ switch($_GET[act]){
         echo "<h2>Daftar Topik Quiz</h2><hr>
           <input class='button blue' type=button value='Tambah Topik' onclick=\"window.location.href='?module=quiz&act=tambahtopikquiz';\">";
         echo "<br><br><table id='table1' class='gtable sortable'><thead>
-          <tr><th>No</th><th>Judul</th><th>Kelas</th><th>Pelajaran</th><th>Tgl Buat</th><th>Lama Pengerjaan</th><th>Info</th><th>Terbit</th><th>Aksi</th></tr></thead>";
+          <tr><th>No</th><th>Judul</th><th>Kelas</th><th>Pelajaran</th><th>Tgl Buat</th><th>Tgl Akhir pengerjaan</th><th>Lama Pengerjaan</th><th>Info</th><th>Terbit</th><th>Aksi</th></tr></thead>";
         
         
         $no=1;
         while ($r=mysql_fetch_array($tampil_topik)){
         $wpengerjaan = $r[waktu_pengerjaan] / 60;
         $tgl_buat   = tgl_indo($r[tgl_buat]);
+        $tgl_akhir   = tgl_indo($r[tgl_batas]);
         echo "<tr><td>$no</td>
              <td>$r[judul]</td>";
              $kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$r[id_kelas]'");
@@ -178,7 +180,7 @@ switch($_GET[act]){
              }else{
                  echo "<td></td>";
              }
-             echo "<td>$tgl_buat</td>
+             echo "<td>$tgl_buat</td><td>$tgl_akhir</td>
              <td>$wpengerjaan menit</td>
              <td>$r[info]</td>
              <td><p align='center'>$r[terbit]</p></td>
@@ -1211,6 +1213,7 @@ case "tambahtopikquiz":
     <legend>Tambah Topik</legend>
     <dl class='inline'>
     <dt><label>Judul</label></dt>              <dd> <input type=text name='judul' size='50'></dd>
+    <dt><label>Tanggal batas pengerjaan</label></dt>               <dd> <input type='date' name='tglbatas'></dd>
     <dt><label>Kelas</label></dt>              <dd> <select name='id_kelas' onChange='showpel()'>
                                           <option value=''>-pilih-</option>";
                                           $pilih="SELECT * FROM kelas ORDER BY nama";
@@ -1238,6 +1241,7 @@ case "tambahtopikquiz":
     <legend>Tambah Topik</legend>
     <dl class='inline'>
     <dt><label>Judul</label></dt>               <dd> <input type=text name='judul' size='50'></dd>
+    <dt><label>Tanggal batas pengerjaan</label></dt>               <dd> <input type='date' name='tglbatas'></dd>
     <dt><label>Kelas</label></dt>               <dd> <select name='id_kelas' onChange='showpel_pengajar()'>
                                           <option value=''>-pilih-</option>";
                                           $pilih= mysql_query("SELECT DISTINCT id_kelas FROM mata_pelajaran WHERE id_pengajar ='$_SESSION[idpengajar]'");
@@ -1248,7 +1252,7 @@ case "tambahtopikquiz":
                                           }
                                           }
                                           echo"</select></dd>
-    <dt><label>Mata Kuliah</label></dt>           <dd> <div id='pelajaran'></div></dd>
+    <dt><label>Mata Kuliah</label></dt>           <dd> <div id='pelajaran'></div></dd>    
     <dt><label>Lama pengerjaan</label></dt>   <dd> <input type=text name='waktu' size='10'><small>Dalam Menit</small></dd>
     <dt><label>Info Quiz</label></dt>                <dd> <textarea name='info' id='wysiwyg' class='medium' rows='6'></textarea></dd>
     <dt><label>Terbit</label></dt>             <dd> <label><input type=radio name='terbit' value='Y'>Y</input></label>
@@ -1280,6 +1284,7 @@ case "edittopikquiz":
     <legend>Edit Topik</legend>
     <dl class='inline'>
     <dt><label>Judul</label></dt>              <dd>: <input type=text name='judul' value='$t[judul]' size='50'></dd>
+    <dt><label>Tanggal batas pengerjaan</label></dt>               <dd> <input type='date' name='tglbatas' value='$t[tgl_batas]'></dd>
     <dt><label>Kelas</label></dt>            <dd>: <select name='id_kelas' onChange='showpel()'>
                                           <option value='".$k[id_kelas]."' selected>".$k[nama]."</option>";
                                           $pilih="SELECT * FROM kelas ORDER BY nama";
@@ -1325,6 +1330,7 @@ case "edittopikquiz":
     <legend>Edit Topik</legend>
     <dl class='inline'>
     <dt><label>Judul</label></dt>              <dd>: <input type=text name='judul' value='$t[judul]' size='50'></dd>
+    <dt><label>Tanggal batas pengerjaan</label></dt>               <dd> <input type='date' name='tglbatas' value='$t[tgl_batas]'></dd>
     <dt><label>Kelas</label></dt>               <dd>: <select name='id_kelas' onChange='showpel_pengajar()'>
                                           <option value='".$k[id_kelas]."' selected>".$k[nama]."</option>";
                                           $pilih= mysql_query("SELECT DISTINCT id_kelas FROM mata_pelajaran WHERE id_pengajar ='$_SESSION[idpengajar]'");
@@ -1359,9 +1365,10 @@ case "edittopikquiz":
 
 case "daftartopik":
     if ($_SESSION[leveluser]=='siswa'){
+        $tgl_inihari = date("Y-m-d");
         $mapel = mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$_GET[id]'");
         $data_mapel = mysql_fetch_array($mapel);
-        $topik = mysql_query("SELECT * FROM topik_quiz WHERE id_kelas = '$_GET[id_kelas]' AND id_matapelajaran = '$_GET[id]' AND terbit='Y'");
+        $topik = mysql_query("SELECT * FROM topik_quiz WHERE id_kelas = '$_GET[id_kelas]' AND id_matapelajaran = '$_GET[id]' AND terbit='Y' AND tgl_batas > '$tgl_inihari'");
         $cek_topik = mysql_num_rows($topik);
 
         if (!empty($cek_topik)){
@@ -1371,11 +1378,13 @@ case "daftartopik":
               $no=1;
               while($t=mysql_fetch_array($topik)){
                   $tgl_posting   = tgl_indo($t[tgl_buat]);
+                  $tgl_akhir   = tgl_indo($t[tgl_batas]);
                   $pengajar =  mysql_query("SELECT * FROM pengajar WHERE id_pengajar = '$t[pembuat]'");
                   $cek_pengajar = mysql_num_rows($pengajar);
                   $waktu = $t[waktu_pengerjaan] / 60;
-                  echo"<tr><td rowspan=6>$no</td><td><b>Judul</b></td><td><b>: $t[judul]</b></td></tr>
-                       <tr><td><b>Tanggal Posting</b></td><td><b>: $tgl_posting</b></td></tr>";
+                  echo"<tr><td rowspan=7>$no</td><td><b>Judul</b></td><td><b>: $t[judul]</b></td></tr>
+                       <tr><td><b>Tanggal Posting</b></td><td><b>: $tgl_posting</b></td></tr>
+                       <tr><td><b>Tanggal Batas Pengerjaan</b></td><td><b>: $tgl_akhir</b></td></tr>";
                        if(!empty($cek_pengajar)){
 
                        $p = mysql_fetch_array($pengajar);
@@ -1712,12 +1721,15 @@ case "buatquizpilganda":
              
              <dt><label>Pilihan C </label></dt>        <dd><textarea name='pilc' id='wysiwyg' cols='75' rows='3'></textarea></dd>
              
-             <dt><label>Pilihan D </label></dt>        <dd><textarea name='pild' id='wysiwyg' cols='75' rows='3'></textarea></dd>
+             <dt><label>Pilihan D </label></dt>        <dd><textarea name='pild' id='wysiwyg' cols='75' rows='3'></textarea></dd> 
+
+             <dt><label>Pilihan E </label></dt>        <dd><textarea name='pile' id='wysiwyg' cols='75' rows='3'></textarea></dd>
              
              <dt><label>Kunci Jawaban</td>  <dd><label><input type=radio name='kunci' value=A>A</input><label>
                                             <label><input type=radio name='kunci' value=B>B</input><label>
                                             <label><input type=radio name='kunci' value=C>C</input><label>
                                             <label><input type=radio name='kunci' value=D>D</input><label>
+                                            <label><input type=radio name='kunci' value=E>E</input><label>
 
              <small>Jumlah soal pilihan ganda di database :";
                     if ($j[jml] == 0){
@@ -1754,10 +1766,13 @@ case "buatquizpilganda":
 
              <dt><label>Pilihan D </label></dt>        <dd><textarea name='pild' id='wysiwyg' cols='75' rows='3'></textarea></dd>
 
+             <dt><label>Pilihan E </label></dt>        <dd><textarea name='pile' id='wysiwyg' cols='75' rows='3'></textarea></dd>
+             
              <dt><label>Kunci Jawaban</td>  <dd><label><input type=radio name='kunci' value=A>A</input><label>
                                             <label><input type=radio name='kunci' value=B>B</input><label>
                                             <label><input type=radio name='kunci' value=C>C</input><label>
                                             <label><input type=radio name='kunci' value=D>D</input><label>
+                                            <label><input type=radio name='kunci' value=E>E</input><label>
 
              <small>Jumlah soal pilihan ganda di database :";
                     if ($j[jml] == 0){
@@ -1944,6 +1959,7 @@ case "daftarquizpilganda":
              <tr><td>Pilihan B</td><td>: $q[pil_b]</td></tr>
              <tr><td>Pilihan C</td><td>: $q[pil_c]</td></tr>
              <tr><td>Pilihan D</td><td>: $q[pil_d]</td></tr>
+             <tr><td>Pilihan E</td><td>: $q[pil_e]</td></tr>
              <tr><td>Kunci Jawaban</td><td>: $q[kunci]</td></tr>
              <tr><td>Aksi</td><td>: <a href='?module=quiz&act=editquizpilganda&id=$q[id_quiz]&id_topik=$q[id_tq]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |
                  <a href=javascript:confirmdelete('$aksi?module=quiz&act=hapusquizpilganda&id=$q[id_quiz]&id_topik=$q[id_tq]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a></td></tr>
@@ -2003,6 +2019,7 @@ case "daftarquizpilganda":
              <tr><td>Pilihan B</td><td>: $q[pil_b]</td></tr>
              <tr><td>Pilihan C</td><td>: $q[pil_c]</td></tr>
              <tr><td>Pilihan D</td><td>: $q[pil_d]</td></tr>
+             <tr><td>Pilihan E</td><td>: $q[pil_e]</td></tr>
              <tr><td>Kunci Jawaban</td><td>: $q[kunci]</td></tr>
              <tr><td>Aksi</td><td>: <a href='?module=quiz&act=editquizpilganda&id=$q[id_quiz]&id_topik=$q[id_tq]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |
                  <a href=javascript:confirmdelete('$aksi?module=quiz&act=hapusquizpilganda&id=$q[id_quiz]&id_topik=$q[id_tq]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a></td></tr>
@@ -2124,30 +2141,42 @@ case "editquizpilganda":
              <dt><label>Pilihan C </label></dt>        <dd><textarea name='pilc' id='wysiwyg2' cols='75' rows='3'>$q[pil_c]</textarea></dd>
 
              <dt><label>Pilihan D </label></dt>        <dd><textarea name='pild' id='wysiwyg2' cols='75' rows='3'>$q[pil_d]</textarea></dd>
+             <dt><label>Pilihan E </label></dt>        <dd><textarea name='pile' id='wysiwyg2' cols='75' rows='3'>$q[pil_e]</textarea></dd>
              <dt><label>Kunci     </label></dt>        <dd>: ";
                     if($q[kunci]=='A'){
                         echo"<label><input type=radio name='kunci' value=A checked>A</input></label>
                              <label><input type=radio name='kunci' value=B>B</input></label>
                              <label><input type=radio name='kunci' value=C>C</input></label>
-                             <label><input type=radio name='kunci' value=D>D</input></label></dd>";
+                             <label><input type=radio name='kunci' value=D>D</input></label>
+                             <label><input type=radio name='kunci' value=E>E</input></label></dd>";
                     }
                     elseif($q[kunci]=='B'){
                         echo"<label><input type=radio name='kunci' value=A>A</input></label>
                              <label><input type=radio name='kunci' value=B checked>B</input></label>
                              <label><input type=radio name='kunci' value=C>C</input></label>
-                             <label><input type=radio name='kunci' value=D>D</input></label></dd>";
+                             <label><input type=radio name='kunci' value=D>D</input></label>
+                             <label><input type=radio name='kunci' value=E>E</input></label></dd>";
                     }
                     elseif($q[kunci]=='C'){
                         echo"<label><input type=radio name='kunci' value=A>A</input></label>
                              <label><input type=radio name='kunci' value=B>B</input></label>
                              <label><input type=radio name='kunci' value=C checked>C</input></label>
-                             <label><input type=radio name='kunci' value=D>D</input></label></dd>";
+                             <label><input type=radio name='kunci' value=D>D</input></label>
+                             <label><input type=radio name='kunci' value=E>E</input></label></dd>";
+                    }
+                    elseif($q[kunci]=='D'){
+                        echo"<label><input type=radio name='kunci' value=A>A</input></label>
+                             <label><input type=radio name='kunci' value=B>B</input></label>
+                             <label><input type=radio name='kunci' value=C>C</input></label>
+                             <label><input type=radio name='kunci' value=D checked>D</input></label>
+                             <label><input type=radio name='kunci' value=E>E</input></label></dd>";
                     }
                     else{
                         echo"<label><input type=radio name='kunci' value=A>A</input></label>
                              <label><input type=radio name='kunci' value=B>B</input></label>
                              <label><input type=radio name='kunci' value=C>C</input></label>
-                             <label><input type=radio name='kunci' value=D checked>D</input></label></dd>";
+                             <label><input type=radio name='kunci' value=D>D</input></label>
+                             <label><input type=radio name='kunci' value=E checked>E</input></label></dd>";
                     }
           echo "</dl>
           <div class='buttons'>
@@ -2191,30 +2220,42 @@ case "editquizpilganda":
              <dt><label>Pilihan C </label></dt>        <dd><textarea name='pilc' id='wysiwyg2' cols='75' rows='3'>$q[pil_c]</textarea></dd>
 
              <dt><label>Pilihan D </label></dt>        <dd><textarea name='pild' id='wysiwyg2' cols='75' rows='3'>$q[pil_d]</textarea></dd>
+             <dt><label>Pilihan E </label></dt>        <dd><textarea name='pile' id='wysiwyg2' cols='75' rows='3'>$q[pil_e]</textarea></dd>
              <dt><label>Kunci     </label></dt>        <dd>: ";
                     if($q[kunci]=='A'){
                         echo"<label><input type=radio name='kunci' value=A checked>A</input></label>
                              <label><input type=radio name='kunci' value=B>B</input></label>
                              <label><input type=radio name='kunci' value=C>C</input></label>
-                             <label><input type=radio name='kunci' value=D>D</input></label></dd>";
+                             <label><input type=radio name='kunci' value=D>D</input></label>
+                             <label><input type=radio name='kunci' value=E>E</input></label></dd>";
                     }
                     elseif($q[kunci]=='B'){
                         echo"<label><input type=radio name='kunci' value=A>A</input></label>
                              <label><input type=radio name='kunci' value=B checked>B</input></label>
                              <label><input type=radio name='kunci' value=C>C</input></label>
-                             <label><input type=radio name='kunci' value=D>D</input></label></dd>";
+                             <label><input type=radio name='kunci' value=D>D</input></label>
+                             <label><input type=radio name='kunci' value=E>E</input></label></dd>";
                     }
                     elseif($q[kunci]=='C'){
                         echo"<label><input type=radio name='kunci' value=A>A</input></label>
                              <label><input type=radio name='kunci' value=B>B</input></label>
                              <label><input type=radio name='kunci' value=C checked>C</input></label>
-                             <label><input type=radio name='kunci' value=D>D</input></label></dd>";
+                             <label><input type=radio name='kunci' value=D>D</input></label>
+                             <label><input type=radio name='kunci' value=E>E</input></label></dd>";
+                    }
+                    elseif($q[kunci]=='D'){
+                        echo"<label><input type=radio name='kunci' value=A>A</input></label>
+                             <label><input type=radio name='kunci' value=B>B</input></label>
+                             <label><input type=radio name='kunci' value=C>C</input></label>
+                             <label><input type=radio name='kunci' value=D checked>D</input></label>
+                             <label><input type=radio name='kunci' value=E>E</input></label></dd>";
                     }
                     else{
                         echo"<label><input type=radio name='kunci' value=A>A</input></label>
                              <label><input type=radio name='kunci' value=B>B</input></label>
                              <label><input type=radio name='kunci' value=C>C</input></label>
-                             <label><input type=radio name='kunci' value=D checked>D</input></label></dd>";
+                             <label><input type=radio name='kunci' value=D>D</input></label>
+                             <label><input type=radio name='kunci' value=E checked>E</input></label></dd>";
                     }
           echo "</dl>
           <div class='buttons'>

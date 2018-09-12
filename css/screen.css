@@ -1,5 +1,7 @@
-html			{ background: url('../images/main.gif') top left #EEEEEE; }
-body			{ background: url('../images/sidebar.gif') top left repeat-y; min-width: 1000px; min-height: 1250px; text-align: left; margin: 0px; font-family: arial; font-size: 12px; color: #666666;}
+html			{ background: url('../images/mitra_husada_front.jpg') top left #EEEEEE; background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;}
+body			{ background: url('../images/sidebar5.gif') top left repeat-y; min-width: 1000px; min-height: 1250px; text-align: left; margin: 0px; font-family: arial; font-size: 12px; }
 body.no-side		{ background: none; color: #333333; min-height: 100%; margin-bottom: 100px; }
 
 .clear:after 		{ content: "."; display: block; height: 0; overflow:hidden; clear: both; visibility: hidden; }
@@ -238,7 +240,7 @@ textarea			{ display: inline; border: 1px solid #B8B8B8; font-size: 12px; font-f
 
 .note-error				{ background: #f5dcdd url('../images/bck_error.png'); border-color: #891501; }
 .note-error .icon		{ background: url('../images/ico_error_16.png') top left no-repeat; margin-left: 10px; }
-.note-success			{ background: #adbece url('images/bck_success.png'); border-color: #b3c0cc; }
+.note-success			{ background: #2b5a8c; border-color: #b3c0cc; }
 .note-success .icon		{ background: url('../images/ico_success_16.png') top left no-repeat; margin-left: 10px; }
 .note-info				{ background: #dce6f3 url('../images/bck_info.png'); border-color: #891501; }
 .note-info .icon		{ background: url('../images/ico_info_16.png') top left no-repeat; margin-left: 10px; }
@@ -331,7 +333,7 @@ table.mceLayout { width: 100% !important; }
 
 .tombol {
 	border:0;
-	background:#9eabb8;
+	background:#50a006;
 	color:#FFF;
 -webkit-border-radius:3px;
 -moz-border-radius:3px;
@@ -344,7 +346,7 @@ table.mceLayout { width: 100% !important; }
 	height: 25px;}
 .judul {
 	border:0;
-	background:#9eabb8;
+	background:#0084ff;
 	color:#FFF;
 -webkit-border-radius:3px;
 -moz-border-radius:3px;

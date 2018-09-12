@@ -144,7 +144,7 @@ if ($_GET['module']=='home'){
          $ketemu=mysql_num_rows($tampil_kelas);
          if (!empty($ketemu)){
                 echo "<br><br><table id='table1' class='gtable sortable'><thead>
-                <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th><th>Kordinator Mahasiswa</th><th>Aksi</th></tr></thead>";
+                <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th><th>Komting</th><th>Aksi</th></tr></thead>";
 
                 $no=1;
                 while ($r=mysql_fetch_array($tampil_kelas)){
@@ -338,6 +338,15 @@ elseif ($_GET['module']=='quiz'){
     include "modul/mod_quiz/quiz.php";
   }else{
       include "modul/mod_quiz/quiz.php";
+  }
+}
+
+// Bagian topik info
+elseif ($_GET['module']=='info'){
+  if ($_SESSION['leveluser']=='admin'){
+    include "modul/mod_info/quiz.php";
+  }else{
+      include "modul/mod_info/quiz.php";
   }
 }
 

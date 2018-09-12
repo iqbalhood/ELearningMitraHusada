@@ -285,12 +285,14 @@ while($s = mysql_fetch_array($soal)){
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='B'>B. ".$s['pil_b']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='C'>C. ".$s['pil_c']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='D'>D. ".$s['pil_d']."</td></tr>";
+    echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='E'>E. ".$s['pil_e']."</td></tr>";
     }else{
         echo "<tr><td rowspan=5><h3>$no.</h3></td><td><h3>".$s['pertanyaan']."</h3></td></tr>";        
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='A'>A. ".$s['pil_a']."</td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='B'>B. ".$s['pil_b']."</td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='C'>C. ".$s['pil_c']."</td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='D'>D. ".$s['pil_d']."</td></tr>";
+        echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='E'>E. ".$s['pil_e']."</td></tr>";
     }
     $no++;
 }
@@ -323,18 +325,20 @@ elseif (!empty($pilganda) AND empty($esay)){
 $no = 1;
 while($s = mysql_fetch_array($soal)){
     if ($s[gambar]!=''){
-    echo "<tr><td rowspan=6><h3>$no.</h3></td><td><h3>".$s['pertanyaan']."</h3></td></tr>";
+    echo "<tr><td rowspan=7><h3>$no.</h3></td><td><h3>".$s['pertanyaan']."</h3></td></tr>";
     echo "<tr><td><img src='foto_soal_pilganda/medium_$s[gambar]'></td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='A'>A. ".$s['pil_a']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='B'>B. ".$s['pil_b']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='C'>C. ".$s['pil_c']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='D'>D. ".$s['pil_d']."</td></tr>";
+    echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='E'>E. ".$s['pil_e']."</td></tr>";
     }else{
-        echo "<tr><td rowspan=5><h3>$no.</h3></td><td><h3>".$s['pertanyaan']."</h3></td></tr>";
+        echo "<tr><td rowspan=6><h3>$no.</h3></td><td><h3>".$s['pertanyaan']."</h3></td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='A'>A. ".$s['pil_a']."</td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='B'>B. ".$s['pil_b']."</td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='C'>C. ".$s['pil_c']."</td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='D'>D. ".$s['pil_d']."</td></tr>";
+        echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='E'>E. ".$s['pil_e']."</td></tr>";
     }
     $no++;
 }

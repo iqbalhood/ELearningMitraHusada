@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2018 at 02:44 AM
+-- Generation Time: Sep 19, 2018 at 07:36 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -47,7 +47,7 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id_admin`, `username`, `password`, `nama_lengkap`, `level`, `alamat`, `no_telp`, `email`, `blokir`, `id_session`) VALUES
 (1, 'administrator', '200ceb26807d6bf99fd6f4f0d1ca54d4', 'Mohammad Iqbal', 'admin', '-', '-', 'iqbalhood@gmail.com', 'Y', 'sa0co693e2iisud1dlm1cuutk5'),
-(3, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Fahrul Hidayat', 'admin', 'Brebes', '-', 'iqbalhood@gmail.com', 'N', 'aiae4589ahbikag9lvnin9nru3');
+(3, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Fahrul Hidayat', 'admin', 'Brebes', '-', 'iqbalhood@gmail.com', 'N', 'kprhmkn7k3npf5epopu4n25094');
 
 -- --------------------------------------------------------
 
@@ -86,9 +86,41 @@ CREATE TABLE `file_materi` (
 --
 
 INSERT INTO `file_materi` (`id_file`, `judul`, `id_kelas`, `id_matapelajaran`, `nama_file`, `tgl_posting`, `pembuat`, `hits`) VALUES
-(78, 'Pengantar ilmu komunikasi', '0', '', 'How to Build an MVP Without Coding (or a Developer) - SaaS Club.pdf', '2018-08-01', 'pengajar', 0),
-(79, 'Pengantar ilmu komunikasi', '111', '111', 'How to build your MVP without a technical co-founder and without code.pdf', '2018-08-01', '8', 0),
-(80, 'Kurikulum ilmu pengantar bisnis', '111', '111', 'peta perkuliahan ilmu komunikasi bisnis.doc', '2018-08-01', '8', 0);
+(90, 'musik', '111', '112', 'print2.docx', '2018-08-08', '8', 0),
+(91, 'Pengantar ilmu komunikasi 2', '111', '111', 'low mvp.pdf', '2018-08-08', '8', 7),
+(79, 'Pengantar ilmu komunikasi', '111', '111', 'How to build your MVP without a technical co-founder and without code.pdf', '2018-08-01', '8', 2),
+(80, 'Kurikulum ilmu pengantar bisnis', '111', '111', 'peta perkuliahan ilmu komunikasi bisnis.doc', '2018-08-01', '8', 0),
+(93, 'video1', '111', '113', 'dolbycanyon.mp4', '2018-08-08', '8', 0),
+(94, 'video1', '111', '113', 'dolbycanyon - part2.mp4', '2018-08-08', '8', 0),
+(92, 'music 2', '111', '112', 'Coldplay-Paradise-Official-Video.mp3', '2018-08-08', '8', 2),
+(95, 'video1', '111', '113', 'dolbycanyon - part3.mp4', '2018-08-08', '8', 0),
+(96, 'video1', '111', '113', 'low mvp2.pdf', '2018-08-08', '8', 0),
+(99, 'musik', '1123', '1114', 'print2.docx', '2018-09-05', '8', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `info_pengumuman`
+--
+
+CREATE TABLE `info_pengumuman` (
+  `id_info` int(11) NOT NULL,
+  `judul` varchar(150) NOT NULL,
+  `id_kelas` varchar(5) NOT NULL,
+  `id_matapelajaran` varchar(10) NOT NULL,
+  `tgl_buat` date NOT NULL,
+  `pembuat` varchar(100) NOT NULL,
+  `info` text NOT NULL,
+  `terbit` enum('Y','N') NOT NULL DEFAULT 'Y'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `info_pengumuman`
+--
+
+INSERT INTO `info_pengumuman` (`id_info`, `judul`, `id_kelas`, `id_matapelajaran`, `tgl_buat`, `pembuat`, `info`, `terbit`) VALUES
+(2, 'tugas pertama sesi1', '111', '111', '2018-08-30', '8', 'tes pengumuman sesi 1', 'Y'),
+(4, 'tugas pertama sesi2', '111', '111', '2018-08-30', '8', 'tes input dari dosen', 'Y');
 
 -- --------------------------------------------------------
 
@@ -112,7 +144,10 @@ INSERT INTO `jawaban` (`id`, `id_tq`, `id_quiz`, `id_siswa`, `jawaban`) VALUES
 (5, 28, 77, 5, 'persamaan kata'),
 (6, 28, 78, 5, 'perlawanan kata'),
 (7, 29, 79, 5, 'persamaan kata'),
-(8, 29, 80, 5, 'pelawanaan kata');
+(8, 29, 80, 5, 'pelawanaan kata'),
+(9, 36, 81, 11, 'teori musik adalah ..'),
+(10, 41, 82, 11, 'tes '),
+(11, 42, 83, 11, 'jawaban disnis');
 
 -- --------------------------------------------------------
 
@@ -133,7 +168,8 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `id_kelas`, `nama`, `id_pengajar`, `id_siswa`) VALUES
-(29, '111', '2018/2019 Komunikasi-A', 8, 11);
+(29, '111', '2018/2019 Komunikasi-A', 8, 11),
+(30, '1123', 'A1 Kebidanan', 8, 11);
 
 -- --------------------------------------------------------
 
@@ -155,7 +191,10 @@ CREATE TABLE `mata_pelajaran` (
 --
 
 INSERT INTO `mata_pelajaran` (`id`, `id_matapelajaran`, `nama`, `id_kelas`, `id_pengajar`, `deskripsi`) VALUES
-(18, '111', 'Ilmu Komunikasi Bisnis', '111', 8, 'ilmu komunikasi bisnis');
+(18, '111', 'Ilmu Komunikasi Bisnis', '111', 8, 'ilmu komunikasi bisnis'),
+(19, '112', 'music', '111', 8, 'musik sebagai media komunikasi'),
+(20, '113', 'video editor', '111', 8, 'mata kuliah video editor'),
+(21, '1114', 'teknik kelistrikan', '1123', 8, 'teknik');
 
 -- --------------------------------------------------------
 
@@ -187,7 +226,8 @@ INSERT INTO `modul` (`id_modul`, `nama_modul`, `link`, `static_content`, `gambar
 (31, 'Mata Kuliah', '?module=matapelajaran', '', '', 'Y', 'pengajar', 'Y', 5, ''),
 (37, 'Manajemen Mahasiswa', '?module=siswa', '', 'gedungku.jpg', 'Y', 'admin', 'Y', 3, 'profil-kami.html'),
 (41, 'Manajemen Kelas', ' ?module=kelas', '', '', 'N', 'pengajar', 'Y', 4, 'semua-agenda.html'),
-(63, 'Manajemen Quiz', '?module=quiz', '', '', 'N', 'pengajar', 'Y', 7, '');
+(63, 'Manajemen Quiz', '?module=quiz', '', '', 'N', 'pengajar', 'Y', 7, ''),
+(66, 'Info', '?module=info', '', '', 'Y', 'pengajar', 'Y', 8, '');
 
 -- --------------------------------------------------------
 
@@ -211,7 +251,13 @@ CREATE TABLE `nilai` (
 
 INSERT INTO `nilai` (`id`, `id_tq`, `id_siswa`, `benar`, `salah`, `tidak_dikerjakan`, `persentase`) VALUES
 (1, 29, 5, 2, 0, 0, 100),
-(2, 30, 7, 4, 1, 0, 80);
+(2, 30, 7, 4, 1, 0, 80),
+(3, 35, 11, 1, 0, 0, 100),
+(4, 37, 11, 0, 0, 2, 0),
+(5, 37, 11, 0, 2, 0, 0),
+(6, 43, 11, 0, 0, 2, 0),
+(7, 43, 11, 2, 0, 0, 100),
+(8, 43, 11, 0, 2, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -231,7 +277,9 @@ CREATE TABLE `nilai_soal_esay` (
 --
 
 INSERT INTO `nilai_soal_esay` (`id`, `id_tq`, `id_siswa`, `nilai`) VALUES
-(14, 29, 5, '80');
+(14, 29, 5, '80'),
+(15, 36, 11, '60'),
+(16, 42, 11, '93');
 
 -- --------------------------------------------------------
 
@@ -254,7 +302,7 @@ INSERT INTO `online` (`ip`, `id_siswa`, `tanggal`, `online`) VALUES
 ('127.0.0.1', 5, '2011-07-14', 'T'),
 ('::1', 7, '2012-03-31', 'T'),
 ('::1', 9, '2011-12-28', 'T'),
-('::1', 11, '2018-08-01', 'Y');
+('::1', 11, '2018-09-12', 'Y');
 
 -- --------------------------------------------------------
 
@@ -288,7 +336,8 @@ CREATE TABLE `pengajar` (
 --
 
 INSERT INTO `pengajar` (`id_pengajar`, `nip`, `nama_lengkap`, `username_login`, `password_login`, `level`, `alamat`, `tempat_lahir`, `tgl_lahir`, `jenis_kelamin`, `agama`, `no_telp`, `email`, `foto`, `website`, `jabatan`, `blokir`, `id_session`) VALUES
-(8, '1002', 'John Robert', 'dosen01', '6a87c5c1673b1e60e2d0f37f868255c4', 'pengajar', 'jl. sidodadi no.3', 'bandung', '1989-08-01', 'L', 'Islam', '081212341234', '', '', 'http://', 'Dosen', 'N', 'ib2623nmg9sch7ernp8jjq98q7');
+(20, '1003', 'Daniel wijaya', 'dosen02', '6a87c5c1673b1e60e2d0f37f868255c4', 'pengajar', '', '', '0000-00-00', 'L', '', '', NULL, '', NULL, '', 'N', '5lpb67brpcl81f07ti6f20rli6'),
+(8, '1002', 'John Robert', 'dosen01', '6a87c5c1673b1e60e2d0f37f868255c4', 'pengajar', 'jl. sidodadi no.3', 'bandung', '1989-08-01', 'L', 'Islam', '081212341235', '', 'dosen01.jpg', 'http://', 'Dosen', 'N', 'ptl5p6nj3crteqrevplmuustd6');
 
 -- --------------------------------------------------------
 
@@ -305,6 +354,15 @@ CREATE TABLE `quiz_esay` (
   `jenis_soal` varchar(50) NOT NULL DEFAULT 'esay'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `quiz_esay`
+--
+
+INSERT INTO `quiz_esay` (`id_quiz`, `id_tq`, `pertanyaan`, `gambar`, `tgl_buat`, `jenis_soal`) VALUES
+(81, 36, 'jelaskan teori musik yang anda ketahuis', 'Sadora.jpg', '2018-08-08', 'esay'),
+(82, 41, 'jelas tentang definini', '', '2018-09-12', 'esay'),
+(83, 42, 'coba jelaskan', '', '2018-09-12', 'esay');
+
 -- --------------------------------------------------------
 
 --
@@ -320,10 +378,24 @@ CREATE TABLE `quiz_pilganda` (
   `pil_b` text NOT NULL,
   `pil_c` text NOT NULL,
   `pil_d` text NOT NULL,
+  `pil_e` text NOT NULL,
   `kunci` varchar(1) NOT NULL,
   `tgl_buat` date NOT NULL,
   `jenis_soal` varchar(50) NOT NULL DEFAULT 'pilganda'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `quiz_pilganda`
+--
+
+INSERT INTO `quiz_pilganda` (`id_quiz`, `id_tq`, `pertanyaan`, `gambar`, `pil_a`, `pil_b`, `pil_c`, `pil_d`, `pil_e`, `kunci`, `tgl_buat`, `jenis_soal`) VALUES
+(212, 35, 'sebutkan teori musik yang anda ketahi', '', 'satu', 'dua', 'tiga', 'empat', '', 'A', '2018-08-08', 'pilganda'),
+(213, 37, 'apakah iqbal gendut?', 'bg_witelstaff.jpg', 'tidak', 'sangat', 'belum', 'paling', 'yakin', 'E', '2018-08-29', 'pilganda'),
+(214, 37, 'gendut itu adalah besar', '', 'ya', 'tidak', 'mungkin obesitas', 'kurang olahraga', 'yakin semua betul', 'E', '2018-08-29', 'pilganda'),
+(215, 35, 'makanan favorit iqbal', '', 'tom yam', 'sushie', 'indomie', 'mie balap', 'mi ramen', 'B', '2018-08-29', 'pilganda'),
+(216, 35, 'ini bisa dari admin ?', '', 'ya', 'tidak', 'inilah bukti bisa', 'coba di tes dulu', 'oke', 'C', '2018-08-29', 'pilganda'),
+(217, 43, 'pilihan dari', '', 'a', 'b', 'c', 'd', 'e', 'A', '2018-09-12', 'pilganda'),
+(218, 43, 'pilih lagi', '', 'a', 'b', 'c', 'd', 'e', 'B', '2018-09-12', 'pilganda');
 
 -- --------------------------------------------------------
 
@@ -392,7 +464,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nis`, `nama_lengkap`, `username_login`, `password_login`, `id_kelas`, `jabatan`, `alamat`, `tempat_lahir`, `tgl_lahir`, `jenis_kelamin`, `agama`, `nama_ayah`, `nama_ibu`, `th_masuk`, `email`, `no_telp`, `foto`, `blokir`, `id_session`, `id_session_soal`, `level`) VALUES
-(11, '123', 'Mawar', 'mawar', 'bd117502364227fd8c09098d31e11313', '111', '', 'jl. sidodadi no.3', 'Jakarta', '1996-09-10', 'P', 'Islam', '', '', '2018', '', '', '', 'N', '4sia4ici4etm7gi2qln4n74ml6', '123', 'siswa');
+(11, '123', 'Mawar', 'mawar', 'bd117502364227fd8c09098d31e11313', '111', '', 'jl. sidodadi no.3', 'Jakarta', '1996-09-10', 'P', 'Islam', '', '', '2018', '', '', '', 'N', 'dptgdck17737aifjoov7p199c1', '123', 'siswa');
 
 -- --------------------------------------------------------
 
@@ -416,7 +488,15 @@ INSERT INTO `siswa_sudah_mengerjakan` (`id`, `id_tq`, `id_siswa`, `dikoreksi`, `
 (1, 29, '5', 'S', 1),
 (2, 30, '7', 'B', 1),
 (3, 32, '11', 'B', 1),
-(4, 0, '11', 'B', 1);
+(4, 0, '11', 'B', 1),
+(5, 35, '11', 'B', 1),
+(6, 36, '11', 'S', 1),
+(7, 33, '11', 'B', 1),
+(10, 37, '11', 'B', 1),
+(11, 41, '11', 'B', 1),
+(12, 42, '11', 'S', 1),
+(13, 39, '11', 'B', 1),
+(16, 43, '11', 'B', 1);
 
 -- --------------------------------------------------------
 
@@ -454,15 +534,26 @@ CREATE TABLE `topik_quiz` (
   `pembuat` varchar(100) NOT NULL,
   `waktu_pengerjaan` int(50) NOT NULL,
   `info` text NOT NULL,
-  `terbit` enum('Y','N') NOT NULL DEFAULT 'Y'
+  `terbit` enum('Y','N') NOT NULL DEFAULT 'Y',
+  `tgl_batas` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `topik_quiz`
 --
 
-INSERT INTO `topik_quiz` (`id_tq`, `judul`, `id_kelas`, `id_matapelajaran`, `tgl_buat`, `pembuat`, `waktu_pengerjaan`, `info`, `terbit`) VALUES
-(33, 'QUIS Pengantar ilmu komunikasi', '111', '111', '2018-08-01', '8', 3600, 'evaluasi', 'Y');
+INSERT INTO `topik_quiz` (`id_tq`, `judul`, `id_kelas`, `id_matapelajaran`, `tgl_buat`, `pembuat`, `waktu_pengerjaan`, `info`, `terbit`, `tgl_batas`) VALUES
+(35, 'quis pertemuan 2', '111', '112', '2018-08-30', '8', 1800, 'harus dikerjakan sebelum tanggal&nbsp;', 'Y', '2018-08-28'),
+(34, 'quis 1', '1123', '1114', '2018-08-30', '20', 1800, 'tes', 'Y', '2018-08-02'),
+(33, 'QUIS Pengantar ilmu komunikasi', '111', '111', '2018-08-30', '8', 3600, 'evaluasi', 'Y', '2018-08-31'),
+(36, 'quis 2', '111', '111', '2018-08-30', '8', 3600, 'esay', 'Y', '2018-08-31'),
+(37, 'tes abzad', '111', '111', '2018-08-30', '8', 3600, 'tes abcde', 'Y', '2018-08-31'),
+(38, 'tes tanggal batas', '111', '111', '2018-08-30', '8', 600, 'tes saja', 'Y', '2018-09-08'),
+(39, 'Pengantar ilmu komunikasi', '111', '111', '2018-08-30', '8', 300, 'cuma tes', 'Y', '2018-09-14'),
+(40, 'tes ulang', '111', '113', '2018-08-30', '8', 300, 'tes ulang ulang', 'Y', '2018-09-01'),
+(41, 'tugas 1 september', '111', '111', '2018-09-12', '8', 3600, 'tugas wajib', 'Y', '2018-09-15'),
+(42, 'tugas pertama sesi2', '111', '111', '2018-09-12', '8', 3600, '', 'Y', '2018-09-15'),
+(43, 'quis pilgan september', '111', '111', '2018-09-12', '8', 1200, 'pilgan', 'Y', '2018-09-15');
 
 --
 -- Indexes for dumped tables
@@ -485,6 +576,12 @@ ALTER TABLE `chat`
 --
 ALTER TABLE `file_materi`
   ADD PRIMARY KEY (`id_file`);
+
+--
+-- Indexes for table `info_pengumuman`
+--
+ALTER TABLE `info_pengumuman`
+  ADD PRIMARY KEY (`id_info`);
 
 --
 -- Indexes for table `jawaban`
@@ -595,52 +692,57 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `file_materi`
 --
 ALTER TABLE `file_materi`
-  MODIFY `id_file` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id_file` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+--
+-- AUTO_INCREMENT for table `info_pengumuman`
+--
+ALTER TABLE `info_pengumuman`
+  MODIFY `id_info` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `jawaban`
 --
 ALTER TABLE `jawaban`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `mata_pelajaran`
 --
 ALTER TABLE `mata_pelajaran`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `modul`
 --
 ALTER TABLE `modul`
-  MODIFY `id_modul` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id_modul` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `nilai_soal_esay`
 --
 ALTER TABLE `nilai_soal_esay`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `pengajar`
 --
 ALTER TABLE `pengajar`
-  MODIFY `id_pengajar` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_pengajar` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `quiz_esay`
 --
 ALTER TABLE `quiz_esay`
-  MODIFY `id_quiz` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id_quiz` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 --
 -- AUTO_INCREMENT for table `quiz_pilganda`
 --
 ALTER TABLE `quiz_pilganda`
-  MODIFY `id_quiz` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
+  MODIFY `id_quiz` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=219;
 --
 -- AUTO_INCREMENT for table `registrasi_siswa`
 --
@@ -655,7 +757,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `siswa_sudah_mengerjakan`
 --
 ALTER TABLE `siswa_sudah_mengerjakan`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `templates`
 --
@@ -665,7 +767,7 @@ ALTER TABLE `templates`
 -- AUTO_INCREMENT for table `topik_quiz`
 --
 ALTER TABLE `topik_quiz`
-  MODIFY `id_tq` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;COMMIT;
+  MODIFY `id_tq` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

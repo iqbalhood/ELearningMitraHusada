@@ -450,16 +450,8 @@ case "koreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25>
+                                        </td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
 
@@ -470,16 +462,7 @@ case "koreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
                             }
@@ -519,16 +502,7 @@ case "koreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
 
@@ -539,16 +513,7 @@ case "koreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
                             }
@@ -610,16 +575,7 @@ case "koreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
 
@@ -630,16 +586,7 @@ case "koreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
                             }
@@ -679,16 +626,7 @@ case "koreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
 
@@ -699,16 +637,7 @@ case "koreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
                             }
@@ -770,16 +699,7 @@ case "editkoreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
 
@@ -790,16 +710,7 @@ case "editkoreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
                             }
@@ -835,16 +746,7 @@ case "editkoreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
 
@@ -855,16 +757,7 @@ case "editkoreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
                             }
@@ -914,16 +807,7 @@ case "editkoreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
 
@@ -934,16 +818,7 @@ case "editkoreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
                             }
@@ -979,16 +854,7 @@ case "editkoreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
 
@@ -999,16 +865,7 @@ case "editkoreksi":
                                   <tr><td><b>Jawaban:</b></td></tr>
                                   <tr><td>$j[jawaban]</td></tr>
                                   <tr><td><b>Nilai:</b></td></tr>
-                                  <tr><td><input type=radio name='nilai".$no."' value='10'>10</input>
-                                          <input type=radio name='nilai".$no."' value='20'>20</input>
-                                          <input type=radio name='nilai".$no."' value='30'>30</input>
-                                          <input type=radio name='nilai".$no."' value='40'>40</input>
-                                          <input type=radio name='nilai".$no."' value='50'>50</input>
-                                          <input type=radio name='nilai".$no."' value='60'>60</input>
-                                          <input type=radio name='nilai".$no."' value='70'>70</input>
-                                          <input type=radio name='nilai".$no."' value='80'>80</input>
-                                          <input type=radio name='nilai".$no."' value='90'>90</input>
-                                          <input type=radio name='nilai".$no."' value='100'>100</input></td></tr>
+                                  <tr><td><input type=text name='nilai".$no."' size=25></td></tr>
                                   <input type=hidden name='jawab".$no."' value='$j[jawaban]'>
                                   </table>";
                             }

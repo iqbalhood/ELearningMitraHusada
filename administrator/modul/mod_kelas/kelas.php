@@ -187,16 +187,16 @@ switch($_GET[act]){
           <fieldset>
           <legend>Tambah Kelas</legend>
           <dl class='inline'>
-          <dt><label>Id Kelas</label></dt>        <dd> : <input type=text name='id_kelas'></dd>
-          <dt><label>Nama Kelas</label></dt>      <dd> : <input type=text name='nama'></dd>
-          <dt><label>Dosen Wali</label></dt>      <dd> : <select name='id_pengajar'>
-                                      <option value=0 selected>-- Pilih Pengajar --</option>";
+          <dt><label>Id Kelas</label></dt>        <dd> : <input type=text name='id_kelas' required='required'></dd>
+          <dt><label>Nama Kelas</label></dt>      <dd> : <input type=text name='nama' required='required'></dd>
+          <dt><label>Dosen Wali</label></dt>      <dd> : <select name='id_pengajar' required>
+                                      <option value='' >-- Pilih Pengajar --</option>";
                                       $tampil=mysql_query("SELECT * FROM pengajar ORDER BY nama_lengkap");
                                       while($r=mysql_fetch_array($tampil)){
                                       echo "<option value=$r[id_pengajar]>$r[nama_lengkap]</option>";
                                       }echo "</select></dd>
-          <dt><label>Komting</label></dt>     <dd> : <select name='id_siswa'>
-                                      <option value=0 selected>-- Pilih Siswa --</option>";
+          <dt><label>Komting</label></dt>     <dd> : <select name='id_siswa' required>
+                                      <option value=''>-- Pilih Siswa --</option>";
                                       $tampil_siswa=mysql_query("SELECT * FROM siswa ORDER BY nama_lengkap");
                                       while($s=mysql_fetch_array($tampil_siswa)){
                                       echo "<option value=$s[id_siswa]>$s[nama_lengkap]</option>";
@@ -241,16 +241,16 @@ switch($_GET[act]){
           <fieldset>
           <legend>Edit Kelas</legend>
           <dl class='inline'>
-          <dt><label>Id Kelas</label></dt>       <dd> : <input type=text name='id_kelas' value='$r[id_kelas]') </dd>
-          <dt><label>Nama Kelas</label></dt>     <dd> : <input type=text name='nama' value='$r[nama]'></dd>
-          <dt><label>Dosen Wali</label></dt>     <dd> : <select name='id_pengajar'>";
+          <dt><label>Id Kelas</label></dt>       <dd> : <input type=text name='id_kelas' value='$r[id_kelas]' required='required') </dd>
+          <dt><label>Nama Kelas</label></dt>     <dd> : <input type=text name='nama' value='$r[nama]' required='required'></dd>
+          <dt><label>Dosen Wali</label></dt>     <dd> : <select name='id_pengajar' required>";
                                  
                                       echo "<option value='$nipp[id_pengajar]' selected>$nipp[nama_lengkap]</option>";
                                       $tampil=mysql_query("SELECT * FROM pengajar ORDER BY nama_lengkap");
                                       while($p=mysql_fetch_array($tampil)){
                                       echo "<option value=$p[id_pengajar]>$p[nama_lengkap]</option>";
                                       }echo "</select></dd>
-          <dt><label>Komting</label></dt>    <dd> : <select name='id_siswa'>
+          <dt><label>Komting</label></dt>    <dd> : <select name='id_siswa' required>
                                       <option value='$niss[id_siswa]' selected>$niss[nama_lengkap]</option>";
                                       $tampil_siswa=mysql_query("SELECT * FROM siswa ORDER BY nama_lengkap");
                                       while($s=mysql_fetch_array($tampil_siswa)){

@@ -103,11 +103,11 @@ if ($_SESSION[leveluser]=='admin'){
 						<li><a href="?module=admin&act=upload_mahasiswa">Upload data Mahasiswa</a></li>
 					</ul>
 				</li>
-                                <li><a href="#">Setting</a>
+                                <!-- <li><a href="#">Setting</a>
 					<ul>
 						<li><a href="?module=modul">Modules</a></li>
 					</ul>
-				</li>
+				</li> -->
 				<li><a href="#">Setting Ukuran</a>
 					<ul id="layoutwidth">
 						<li><a href="#" rel="fixed">Kecil</a></li>

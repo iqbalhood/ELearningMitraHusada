@@ -321,8 +321,8 @@ case "tambahmateri":
      <fieldset>
      <legend>Tambah Materi</legend>
      <dl class='inline'>
-    <dt><label>Judul</label></dt>              <dd><input type=text name='judul' size=50></dd>
-    <dt><label>Kelas</label></dt>              <dd><select name='id_kelas' onChange='showpel()'>
+    <dt><label>Judul</label></dt>              <dd><input type=text name='judul' size=50 required='required'></dd>
+    <dt><label>Kelas</label></dt>              <dd><select name='id_kelas' onChange='showpel()' required>
                                           <option value=''>-pilih-</option>";                                          
                                           $cari_kelas = mysql_query("SELECT * FROM kelas ORDER BY nama");
                                           while ($k=mysql_fetch_array($cari_kelas)){
@@ -344,7 +344,7 @@ case "tambahmateri":
     <fieldset>
     <legend>Tambah Materi</legend>
     <dl class='inline'>
-    <dt><label>Judul</label></dt>              <dd> <input type=text name='judul' size=50></dd>
+    <dt><label>Judul</label></dt>              <dd> <input type=text name='judul' size=50 required='required'></dd>
     <dt><label>Kelas</label></dt>              <dd> <select name='id_kelas' onChange='showpel_pengajar()'>
                                           <option value='0' selected>-pilih-</option>";
                                           $pilih= mysql_query("SELECT DISTINCT id_kelas FROM mata_pelajaran WHERE id_pengajar ='$_SESSION[idpengajar]'");
@@ -356,7 +356,7 @@ case "tambahmateri":
                                           }
                                           echo"</select></dd>
     <dt><label>Pelajaran</label></dt>          <dd> <div id='pelajaran_pengajar'></div></dd>
-    <dt><label>File</label></dt>              <dd> <input type=file name='fupload' size=35>
+    <dt><label>File</label></dt>              <dd> <input type=file name='fupload' size=35 required>
     <small>Max size 5mb</small></dd> 
     <p align=center><input class='button blue' type=submit value=Simpan>
                       <input class='button blue' type=button value=Batal onclick=\"window.location.href='?module=materi';\"></p>
@@ -379,8 +379,8 @@ case "editmateri":
     <fieldset>
      <legend>Edit Materi</legend>
      <dl class='inline'>
-    <dt><label>Judul</label></dt>             <dd>: <input type=text name='judul' value='$m[judul]'></dd>
-    <dt><label>Kelas</label></dt>               <dd>: <select name='id_kelas' onChange='showpel()'>
+    <dt><label>Judul</label></dt>             <dd>: <input type=text name='judul' value='$m[judul]' required='required'></dd>
+    <dt><label>Kelas</label></dt>               <dd>: <select name='id_kelas' onChange='showpel()' required>
                                           <option value='".$k[id_kelas]."' selected>".$k[nama]."</option>";
                                           $pilih="SELECT * FROM kelas ORDER BY nama";
                                           $query=mysql_query($pilih);

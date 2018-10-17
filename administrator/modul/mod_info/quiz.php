@@ -1206,8 +1206,8 @@ case "tambahtopikquiz":
     <fieldset>
     <legend>Tambah Pengumuman</legend>
     <dl class='inline'>
-    <dt><label>Judul</label></dt>              <dd> <input type=text name='judul' size='50'></dd>
-    <dt><label>Kelas</label></dt>              <dd> <select name='id_kelas' onChange='showpel()'>
+    <dt><label>Judul</label></dt>              <dd> <input type=text name='judul' size='50' required='required'></dd>
+    <dt><label>Kelas</label></dt>              <dd> <select name='id_kelas' onChange='showpel()' required>
                                           <option value=''>-pilih-</option>";
                                           $pilih="SELECT * FROM kelas ORDER BY nama";
                                           $query=mysql_query($pilih);
@@ -1232,8 +1232,8 @@ case "tambahtopikquiz":
     <fieldset>
     <legend>Tambah Pengumuman</legend>
     <dl class='inline'>
-    <dt><label>Judul</label></dt>               <dd> <input type=text name='judul' size='50'></dd>
-    <dt><label>Kelas</label></dt>               <dd> <select name='id_kelas' onChange='showpel_pengajar()'>
+    <dt><label>Judul</label></dt>               <dd> <input type=text name='judul' size='50' required='required'></dd>
+    <dt><label>Kelas</label></dt>               <dd> <select name='id_kelas' onChange='showpel_pengajar()' required>
                                           <option value=''>-pilih-</option>";
                                           $pilih= mysql_query("SELECT DISTINCT id_kelas FROM mata_pelajaran WHERE id_pengajar ='$_SESSION[idpengajar]'");
                                           while($row=mysql_fetch_array($pilih)){
@@ -1274,7 +1274,7 @@ case "edittopikquiz":
     <fieldset>
     <legend>Edit Pengumuman</legend>
     <dl class='inline'>
-    <dt><label>Judul</label></dt>              <dd>: <input type=text name='judul' value='$t[judul]' size='50'></dd>
+    <dt><label>Judul</label></dt>              <dd>: <input type=text name='judul' value='$t[judul]' size='50' required='required'></dd>
     <dt><label>Kelas</label></dt>            <dd>: <select name='id_kelas' onChange='showpel()'>
                                           <option value='".$k[id_kelas]."' selected>".$k[nama]."</option>";
                                           $pilih="SELECT * FROM kelas ORDER BY nama";

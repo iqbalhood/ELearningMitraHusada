@@ -94,7 +94,7 @@ switch($_GET[act]){
         echo "<h2>Manajemen Tugas/Quiz</h2><hr>
           <input type=button class='button blue' value='Tambah Topik' onclick=\"window.location.href='?module=quiz&act=tambahtopikquiz';\">";
 
-        echo "<br><br><table id='table1' class='gtable sortable'><thead>
+        echo "<br><br><table id='table1' class='sortable'><thead>
           <tr><th>no</th><th>judul</th><th>kelas</th><th>mata kuliah</th><th>tgl buat</th><th>tgl Akhir pengerjaan</th><th>pembuat</th><th>waktu</th><th>Info</th><th>terbit</th><th>aksi</th></tr></thead>";
         
         $tampil_topik = mysql_query("SELECT * FROM topik_quiz ORDER BY id_kelas");
@@ -1069,9 +1069,9 @@ case "tambahtopikquiz":
     <fieldset>
     <legend>Tambah Topik</legend>
     <dl class='inline'>
-    <dt><label>Judul</label></dt>              <dd> <input type=text name='judul' size='50'></dd>
+    <dt><label>Judul</label></dt>              <dd> <input type=text name='judul' size='50' required='required'></dd>
     <dt><label>Tanggal batas pengerjaan</label></dt>               <dd> <input type='date' name='tglbatas'></dd>
-    <dt><label>Kelas</label></dt>              <dd> <select name='id_kelas' onChange='showpel()'>
+    <dt><label>Kelas</label></dt>              <dd> <select name='id_kelas' onChange='showpel()' required>
                                           <option value=''>-pilih-</option>";
                                           $pilih="SELECT * FROM kelas ORDER BY nama";
                                           $query=mysql_query($pilih);
@@ -1080,9 +1080,9 @@ case "tambahtopikquiz":
                                           }
                                           echo"</select></dd>
     <dt><label>Mata Kuliah</label></dt>          <dd> <div id='pelajaran'></div></dd>
-    <dt><label>Waktu pengerjaan</label></dt>   <dd> <input type=text name='waktu' size='10'>
+    <dt><label>Waktu pengerjaan</label></dt>   <dd> <input type=text name='waktu' size='10' required='required'>
                                                     <small>Dalam Menit</small></dd>
-    <dt><label>Info</label></dt>              <dd> <textarea name='info' id='wysiwyg' class='medium' rows='6'></textarea></td></tr>
+    <dt><label>Info</label></dt>              <dd> <textarea name='info' id='wysiwyg' class='medium' rows='6' required='required'></textarea></td></tr>
     <dt><label>Terbit</label></dt>            <dd> <label><input type=radio name='terbit' value='Y'>Y</input></label>
                                               <label><input type=radio name='terbit' value='N'>N</input></label></dd>
     </dl>

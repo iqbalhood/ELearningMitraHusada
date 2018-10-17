@@ -116,12 +116,12 @@ switch($_GET[act]){
           <fieldset>
           <legend>Tambah Administrator</legend>
           <dl class='inline'>
-          <dt><label>Username</label></dt>     <dd> : <input type=text name='username'></dd>
-          <dt><label>Password</label></dt>     <dd> : <input type=text name='password'></dd>
-          <dt><label>Nama</label></dt> <dd> : <input type=text name='nama_lengkap' size=30></dd>
-          <dt><label>Alamat</label></dt>        <dd> : <input type=text name='alamat' size=70></dd>
-          <dt><label>E-mail</label></dt>       <dd> : <input type=text name='email' size=30></dd>
-          <dt><label>No.Telp/HP</label></dt>   <dd> : <input type=text name='no_telp' size=20></dd>
+          <dt><label>Username</label></dt>     <dd> : <input type=text name='username' required='required'></dd>
+          <dt><label>Password</label></dt>     <dd> : <input type=text name='password' required='required'></dd>
+          <dt><label>Nama</label></dt> <dd> : <input type=text name='nama_lengkap' size=30 required='required'></dd>
+          <dt><label>Alamat</label></dt>        <dd> : <input type=text name='alamat' size=70 required='required'></dd>
+          <dt><label>E-mail</label></dt>       <dd> : <input type=text name='email' size=30 required='required'></dd>
+          <dt><label>No.Telp/HP</label></dt>   <dd> : <input type=text name='no_telp' size=20 required='required'></dd>
           <dt><label>Blokir</label></dt>       <dd> : <input type=radio name='blokir' value='Y'> Y
                                            <input type=radio name='blokir' value='N' checked> N </dd>
           </dl>

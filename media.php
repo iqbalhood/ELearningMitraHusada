@@ -1,5 +1,6 @@
 <?php
 include "configurasi/koneksi.php";
+include "configurasi/koneksi_portal.php";
 include "configurasi/library.php";
 include "configurasi/fungsi_indotgl.php";
 include "configurasi/fungsi_combobox.php";
@@ -187,7 +188,7 @@ function confirmClose() {
 
 	<div class="sidebar">
 		<div class="logo clear">
-		  <p>&nbsp;</p>
+		  <p><img src="images/logomh.png" height="54px;"></p>
 		  <p>&nbsp;</p>
 		</div>
 

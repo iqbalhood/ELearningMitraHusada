@@ -48,12 +48,12 @@ if ($_GET['module']=='home'){
 								<span>Mahasiswa</span>
 							</a>
 						</li>
-						<li>
+					<!--	<li>
 							<a href="?module=modul">
 								<img src="images/eleganticons/Config.png" />
 								<span>Module</span>
 							</a>
-						</li>
+						</li> -->
 						<li>
 							<a href="?module=kelas">
 								<img src="images/eleganticons/Info.png" />

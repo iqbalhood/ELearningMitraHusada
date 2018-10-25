@@ -22,6 +22,35 @@ if (empty($_SESSION['username']) AND empty($_SESSION['passuser'])) {
                 // echo "<h2>Manajemen Mahasiswa</h2><hr>
                 //     <input class='button blue' type=button value='Tambah Mahasiswa' onclick=\"window.location.href='?module=siswa&act=tambahsiswa';\">";
                 echo "<br><br><div class='information msg'>Mahasiswa tidak bisa di hapus, tapi bisa di non aktifkan.</div>";
+                echo "<h2>Manajemen Mahasiswa</h2><hr>";
+                echo "<form method=GET action=''>
+                <fieldset>
+                <legend>Search</legend>
+                <dl class='inline'>
+                <input type=text name='module' value='siswa' hidden>
+                <input type=text name='act' value='searchsiswa' hidden>
+                <dt><input type=text name='searchtext' placeholder='NPM/Nama' size='35'>
+                </dt> 
+                <dd> &nbsp; <select name='id_kelas'>
+                <option value='' selected>pilih kelas/ALL</option>";
+                $tampil=mysql_query("SELECT * FROM kelas ORDER BY nama");
+                while($r=mysql_fetch_array($tampil)){
+                echo "<option value=$r[id_kelas]>$r[nama]</option>";
+                }echo "</select>
+                                                        <select name='blokir'>
+                                                        <option value=''>Pilih blokir/ALL</option>
+                                                        <option value='N'>No</option>
+                                                        <option value='Y'>Yes</option>
+                                                        </select>
+                                                        
+                                                        <input class='button blue' type=submit value=Search>
+                                                        </dd>
+                 
+                
+                              
+                </dl>
+                
+                </fieldset></form>";
                 echo "<br><table id='table1' class='gtable sortable'><thead>
           <tr><th>No</th><th>NPM</th><th>Nama mahasiswa</th><th>Kelas</th><th>Jenis Kelamin</th>
             <th>Blokir</th><th>Aksi</th></tr></thead>";
@@ -36,7 +65,7 @@ if (empty($_SESSION['username']) AND empty($_SESSION['passuser'])) {
                     }
                     echo "<td><p align='center'>$r[jenis_kelamin]</p></td>             
              <td><p align='center'>$r[blokir]</p></td>
-             <td><!-- <a href='?module=siswa&act=editsiswa&id=$r[id_siswa]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> | -->
+             <td><a href='?module=siswa&act=editsiswa&id=$r[id_siswa]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |
                  <a href=?module=detailsiswa&act=detailsiswa&id=$r[id_siswa]>Detail</a></td></tr>";
                     $no++;
                 }
@@ -48,6 +77,109 @@ if (empty($_SESSION['username']) AND empty($_SESSION['passuser'])) {
                 echo "<br><div id=paging>$linkHalaman</div><br>";
             }
             break;
+
+            case searchsiswa:
+            if ($_SESSION[leveluser] == 'admin') {
+                
+                
+                $p      = new paging_paging;
+                $batas  = 20;
+                $posisi = $p->cariPosisi($batas);
+
+                $searchtext =  $_GET['searchtext'];
+                $kelas =  $_GET['id_kelas'];
+                $blokir =  $_GET['blokir'];
+                if($searchtext <> " " && $kelas <> " " && $blokir <> " "){
+                    $query = "SELECT * FROM `siswa` WHERE (`nis` LIKE '%$searchtext%' OR `nama_lengkap` LIKE '%$searchtext%') AND `id_kelas` LIKE '%$kelas%' AND `blokir` LIKE '%$blokir%' LIMIT $posisi,$batas";
+                    
+                }
+                else if($searchtext <> " " && $kelas == 0 && $blokir <> " "){
+                    $query = "SELECT * FROM `siswa` WHERE (`nis` LIKE '%$searchtext%' OR `nama_lengkap` LIKE '%$searchtext%') AND `blokir` LIKE '%$blokir%' LIMIT $posisi,$batas";
+                    
+                }
+                else if($searchtext <> " " && $kelas <> " " && $blokir == " "){
+                    $query = "SELECT * FROM `siswa` WHERE (`nis` LIKE '%$searchtext%' OR `nama_lengkap` LIKE '%$searchtext%') AND `id_kelas` LIKE '%$kelas%' LIMIT $posisi,$batas";
+                    
+                }
+                else if($searchtext == " " && $kelas <> " " && $blokir <> " "){
+                    $query = "SELECT * FROM `siswa` WHERE `id_kelas` LIKE '%$kelas%' AND `blokir` LIKE '%$blokir%' LIMIT $posisi,$batas";
+                    
+                }
+                else if($searchtext == " " && $kelas == 0 && $blokir <> " "){
+                    $query = "SELECT * FROM `siswa` WHERE `blokir` LIKE '%$blokir%' LIMIT $posisi,$batas";
+                    
+                }
+                else if($searchtext == " " && $kelas <> " " && $blokir == " "){
+                    $query = "SELECT * FROM `siswa` WHERE `id_kelas` LIKE '%$kelas%' LIMIT $posisi,$batas";
+                    
+                }
+                else if($searchtext <> " " && $kelas == 0 && $blokir == " "){
+                    $query = "SELECT * FROM `siswa` WHERE `nis` LIKE '%$searchtext%' OR `nama_lengkap` LIKE '%$searchtext%' LIMIT $posisi,$batas";
+                    
+                }else{
+                    $query = "SELECT * FROM `siswa`,$batas";
+                }   
+                
+                $tampil_siswa = mysql_query($query);
+                // echo "<h2>Manajemen Mahasiswa</h2><hr>
+                //     <input class='button blue' type=button value='Tambah Mahasiswa' onclick=\"window.location.href='?module=siswa&act=tambahsiswa';\">";
+                echo "<br><br><div class='information msg'>Mahasiswa tidak bisa di hapus, tapi bisa di non aktifkan.</div>";
+                echo "<h2>Manajemen Mahasiswa</h2><hr>";
+                echo "<form method=GET action=''>
+                <fieldset>
+                <legend>Search</legend>
+                <dl class='inline'>
+                <input type=text name='module' value='siswa' hidden>
+                <input type=text name='act' value='searchsiswa' hidden>
+                <dt><input type=text name='searchtext' placeholder='NPM/Nama' size='35'>
+                </dt> 
+                <dd> &nbsp; <select name='id_kelas'>
+                <option value='' selected>pilih kelas/ALL</option>";
+                $tampil=mysql_query("SELECT * FROM kelas ORDER BY nama");
+                while($r=mysql_fetch_array($tampil)){
+                echo "<option value=$r[id_kelas]>$r[nama]</option>";
+                }echo "</select>
+                                                        <select name='blokir'>
+                                                        <option value=''>Pilih blokir/ALL</option>
+                                                        <option value='N'>No</option>
+                                                        <option value='Y'>Yes</option>
+                                                        </select>
+                                                        
+                                                        <input class='button blue' type=submit value=Search>
+                                                        </dd>
+                 
+                
+                              
+                </dl>
+                
+                </fieldset></form>";
+                echo "<br><table id='table1' class='gtable sortable'><thead>
+          <tr><th>No</th><th>NPM</th><th>Nama mahasiswa</th><th>Kelas</th><th>Jenis Kelamin</th>
+            <th>Blokir</th><th>Aksi</th></tr></thead>";
+                $no = $posisi + 1;
+                while ($r = mysql_fetch_array($tampil_siswa)) {
+                    echo "<tr><td>$no</td>
+             <td>$r[nis]</td>
+             <td>$r[nama_lengkap]</td>";
+                    $kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$r[id_kelas]'");
+                    while ($k = mysql_fetch_array($kelas)) {
+                        echo "<td><a href=?module=kelas&act=detailkelas&id=$r[id_kelas] title='Detail Kelas'>$k[nama]</a></td>";
+                    }
+                    echo "<td><p align='center'>$r[jenis_kelamin]</p></td>             
+             <td><p align='center'>$r[blokir]</p></td>
+             <td><a href='?module=siswa&act=editsiswa&id=$r[id_siswa]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |
+                 <a href=?module=detailsiswa&act=detailsiswa&id=$r[id_siswa]>Detail</a></td></tr>";
+                    $no++;
+                }
+                echo "</table>";
+                $jmldata     = mysql_num_rows(mysql_query("SELECT * FROM siswa"));
+                $jmlhalaman  = $p->jumlahHalaman($jmldata, $batas);
+                $linkHalaman = $p->navHalaman($_GET[halaman], $jmlhalaman);
+                
+                echo "<br><div id=paging>$linkHalaman</div><br>";
+            }
+            break;
+            
         
         case "lihatmurid":
             if ($_SESSION[leveluser] == 'admin') {

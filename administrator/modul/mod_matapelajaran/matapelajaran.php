@@ -57,6 +57,36 @@ switch($_GET[act]){
       $tampil_pelajaran = mysql_query("SELECT * FROM mata_pelajaran ORDER BY id_kelas");
       echo "<h2>Manajemen Mata Kuliah</h2><hr>
           <input class='button blue' type=button value='Tambah mata kuliah' onclick=\"window.location.href='?module=matapelajaran&act=tambahmatapelajaran';\">";
+          echo "<br><br><form method=GET action=''>
+          <fieldset>
+          <legend>Search</legend>
+          <dl class='inline'>
+          <input type=text name='module' value='matapelajaran' hidden>
+          <input type=text name='act' value='searchmatapelajaran' hidden>
+          <dt><input type=text name='searchtext' placeholder='id /mata kuliah' size='35'>
+          </dt> 
+          <dd> &nbsp; <select name='id_kelas'>
+          <option value='' selected>pilih kelas/ALL</option>";
+          $tampil=mysql_query("SELECT * FROM kelas ORDER BY nama");
+          while($r=mysql_fetch_array($tampil)){
+          echo "<option value=$r[id_kelas]>$r[nama]</option>";
+          }echo "</select>
+           <select name='id_pengajar'>
+                                                  <option value=''>Pilih dosen/ALL</option>";
+                                                  $tampil_pengajar=mysql_query("SELECT * FROM pengajar ORDER BY nama_lengkap");
+                                                  while($p=mysql_fetch_array($tampil_pengajar)){
+                                                  echo "<option value=$p[id_pengajar]>$p[nama_lengkap]</option>";
+                                                  }echo "</select>
+                                                  
+                                                  <input class='button blue' type=submit value=Search>
+                                                  </dd>
+           
+          
+                        
+          </dl>
+          
+          </fieldset></form>";
+          
           echo "<br><br><table id='table1' class='gtable sortable'><thead>
           <tr><th>No</th><th>Id Mata Kuliah</th><th>Nama</th><th>Kelas</th><th>Dosen Pengajar</th><th>Deskripsi</th><th>Aksi</th></tr></thead>";
     $no=1;
@@ -96,9 +126,9 @@ switch($_GET[act]){
   $cek_mapel = mysql_num_rows($tampil_pelajaran);
   if (!empty($cek_mapel)){
     echo"<h2>Mata Kuliah Yang Anda Ampu</h2><hr>
-    <input type=button class='button blue' value='Tambah' onclick=\"window.location.href='?module=matapelajaran&act=tambahmatapelajaran';\">";
+    <!--<input type=button class='button blue' value='Tambah' onclick=\"window.location.href='?module=matapelajaran&act=tambahmatapelajaran';\">-->";
     echo "<br><br><table id='table1' class='gtable sortable'><thead>
-          <tr><th>No</th><th>Nama</th><th>Kelas</th><th>Pengajar</th><th>Deskripsi</th><th>Aksi</th></tr></thead>";
+          <tr><th>No</th><th>Nama</th><th>Kelas</th><th>Pengajar</th><th>Deskripsi</th><!--<th>Aksi</th>--></tr></thead>";
     $no=1;
     while ($r=mysql_fetch_array($tampil_pelajaran)){
        echo "<tr><td>$no</td>             
@@ -122,8 +152,8 @@ switch($_GET[act]){
                  echo"<td></td>";
              }
              echo "<td>$r[deskripsi]</td>
-             <td><a href='?module=matapelajaran&act=editmatapelajaran&id=$r[id]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |
-                <a href=javascript:confirmdelete('$aksi_mapel?module=matapelajaran&act=hapus_mapel_pengajar&id=$r[id]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a>";
+             <!--<td><a href='?module=matapelajaran&act=editmatapelajaran&id=$r[id]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |
+                <a href=javascript:confirmdelete('$aksi_mapel?module=matapelajaran&act=hapus_mapel_pengajar&id=$r[id]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a>-->";
       $no++;
     }
     echo "</table>";
@@ -157,6 +187,110 @@ switch($_GET[act]){
         }
         echo "</table>";
     }
+    break;
+
+    case searchmatapelajaran:
+    if ($_SESSION[leveluser]=='admin'){
+        $searchtext =  $_GET['searchtext'];
+        $kelas =  $_GET['id_kelas'];
+        $pengajar =  $_GET['id_pengajar'];
+        if($searchtext <> " " && $kelas <> " " && $pengajar <> " "){
+            $query = "SELECT * FROM `mata_pelajaran` WHERE (`id_matapelajaran` LIKE '%$searchtext%' OR `nama` LIKE '%$searchtext%') AND `id_kelas` LIKE '%$kelas%' AND `id_pengajar` LIKE '%$pengajar%'";
+            
+        }
+        else if($searchtext <> " " && $kelas == 0 && $pengajar <> " "){
+            $query = "SELECT * FROM `mata_pelajaran` WHERE (`id_matapelajaran` LIKE '%$searchtext%' OR `nama` LIKE '%$searchtext%') AND `id_pengajar` LIKE '%$pengajar%'";
+            
+        }
+        else if($searchtext <> " " && $kelas <> " " && $pengajar == " "){
+            $query = "SELECT * FROM `mata_pelajaran` WHERE (`id_matapelajaran` LIKE '%$searchtext%' OR `nama` LIKE '%$searchtext%') AND `id_kelas` LIKE '%$kelas%'";
+            
+        }
+        else if($searchtext == " " && $kelas <> " " && $pengajar <> " "){
+            $query = "SELECT * FROM `mata_pelajaran` WHERE `id_kelas` LIKE '%$kelas%' AND `id_pengajar` LIKE '%$pengajar%'";
+            
+        }
+        else if($searchtext == " " && $kelas == 0 && $pengajar <> " "){
+            $query = "SELECT * FROM `mata_pelajaran` WHERE `id_pengajar` LIKE '%$pengajar%'";
+            
+        }
+        else if($searchtext == " " && $kelas <> " " && $pengajar == " "){
+            $query = "SELECT * FROM `mata_pelajaran` WHERE `id_kelas` LIKE '%$kelas%'";
+            
+        }
+        else if($searchtext <> " " && $kelas == 0 && $pengajar == " "){
+            $query = "SELECT * FROM `mata_pelajaran` WHERE `id_matapelajaran` LIKE '%$searchtext%' OR `nama` LIKE '%$searchtext%'";
+            
+        }else{
+            $query = "SELECT * FROM `mata_pelajaran`";
+        }
+        
+      $tampil_pelajaran = mysql_query($query);
+      echo "<h2>Manajemen Mata Kuliah</h2><hr>
+          <input class='button blue' type=button value='Tambah mata kuliah' onclick=\"window.location.href='?module=matapelajaran&act=tambahmatapelajaran';\">";
+          echo "<br><br><form method=GET action=''>
+          <fieldset>
+          <legend>Search</legend>
+          <dl class='inline'>
+          <input type=text name='module' value='matapelajaran' hidden>
+          <input type=text name='act' value='searchmatapelajaran' hidden>
+          <dt><input type=text name='searchtext' placeholder='id /mata kuliah' size='35'>
+          </dt> 
+          <dd> &nbsp; <select name='id_kelas'>
+          <option value='' selected>pilih kelas/ALL</option>";
+          $tampil=mysql_query("SELECT * FROM kelas ORDER BY nama");
+          while($r=mysql_fetch_array($tampil)){
+          echo "<option value=$r[id_kelas]>$r[nama]</option>";
+          }echo "</select>
+           <select name='id_pengajar'>
+                                                  <option value=''>Pilih dosen/ALL</option>";
+                                                  $tampil_pengajar=mysql_query("SELECT * FROM pengajar ORDER BY nama_lengkap");
+                                                  while($p=mysql_fetch_array($tampil_pengajar)){
+                                                  echo "<option value=$p[id_pengajar]>$p[nama_lengkap]</option>";
+                                                  }echo "</select>
+                                                  
+                                                  <input class='button blue' type=submit value=Search>
+                                                  </dd>
+           
+          
+                        
+          </dl>
+          
+          </fieldset></form>";
+          
+          echo "<br><br><table id='table1' class='gtable sortable'><thead>
+          <tr><th>No</th><th>Id Mata Kuliah</th><th>Nama</th><th>Kelas</th><th>Dosen Pengajar</th><th>Deskripsi</th><th>Aksi</th></tr></thead>";
+    $no=1;
+    while ($r=mysql_fetch_array($tampil_pelajaran)){
+       echo "<tr><td>$no</td>
+             <td>$r[id_matapelajaran]</td>
+             <td>$r[nama]</td>";
+             $kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$r[id_kelas]'");
+             $cek = mysql_num_rows($kelas);
+             if(!empty($cek)){
+             while($k=mysql_fetch_array($kelas)){
+                 echo "<td><a href=?module=kelas&act=detailkelas&id=$r[id_kelas] title='Detail Kelas'>$k[nama]</td>";
+             }
+             }else{
+                 echo"<td></td>";
+             }
+             $pengajar = mysql_query("SELECT * FROM pengajar WHERE id_pengajar = '$r[id_pengajar]'");
+             $cek_pengajar = mysql_num_rows($pengajar);
+             if(!empty($cek_pengajar)){
+             while($p=mysql_fetch_array($pengajar)){
+             echo "<td><a href=?module=admin&act=detailpengajar&id=$r[id_pengajar] title='Detail Pengajar'>$p[nama_lengkap]</a></td>";
+             }
+             }else{
+                 echo"<td></td>";
+             }
+             echo "<td>$r[deskripsi]</td>
+             <td><a href='?module=matapelajaran&act=editmatapelajaran&id=$r[id]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |
+                 <a href=javascript:confirmdelete('$aksi?module=matapelajaran&act=hapus&id=$r[id]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a></td></tr>";
+      $no++;
+    }
+    echo "</table>";
+    }
+    
     break;
 
 case "tambahmatapelajaran":

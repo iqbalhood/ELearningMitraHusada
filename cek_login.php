@@ -12,7 +12,7 @@ if (!ctype_alnum($username) OR !ctype_alnum($pass)){
   echo "Access not allowed";
 }
 else{
-$login=mysql_query("SELECT * FROM siswa WHERE username_login='$username' AND password_login='$pass' AND blokir='N'");
+$login=mysql_query("SELECT * FROM siswa WHERE id_siswa='$username' AND password_login='$pass' AND blokir='N'");
 $ketemu=mysql_num_rows($login);
 $r=mysql_fetch_array($login);
 

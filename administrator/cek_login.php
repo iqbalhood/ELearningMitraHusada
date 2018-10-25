@@ -18,7 +18,7 @@ $login=mysql_query("SELECT * FROM admin WHERE username='$username' AND password=
 $ketemu=mysql_num_rows($login);
 $r=mysql_fetch_array($login);
 
-$login_guru =mysql_query("SELECT * FROM pengajar WHERE username_login='$username' AND password_login='$pass' AND blokir='N'");
+$login_guru =mysql_query("SELECT * FROM pengajar WHERE nip='$username' AND password_login='$pass' AND blokir='N'");
 $ketemu_guru=mysql_num_rows($login_guru);
 $g=mysql_fetch_array($login_guru);
 

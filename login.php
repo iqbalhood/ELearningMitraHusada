@@ -58,7 +58,7 @@ function validasi(form){
                   <td><div align="center">
                     <table cellpadding="0" cellspacing="0">
                       <tr>
-                        <td height="25"><b>Username</b></td>
+                        <td height="25"><b>NPM</b></td>
                         <td> :
                           <input type="text" name="username"  class="text" /></td>
                       </tr>

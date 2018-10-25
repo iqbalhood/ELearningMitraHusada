@@ -171,6 +171,38 @@ elseif ($module=='admin' AND $act=='upload_dosen'){
     
   }
 
+ 
+// Upload data mahasiswa
+elseif ($module=='admin' AND $act=='upload_mahasiswa'){
+    $conn = mysqli_connect("localhost", "root", "", "dbelearning");
+    if (isset($_POST["import"])) {
+    $fileName = $_FILES["file"]["tmp_name"];
+    
+    if ($_FILES["file"]["size"] > 0) {
+        
+        $file = fopen($fileName, "r");
+        
+        while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
+            $sqlInsert = "INSERT into siswa(id_siswa,nis,nama_lengkap,username_login,password_login,id_kelas,jabatan,alamat,tempat_lahir,tgl_lahir,jenis_kelamin,agama,nama_ayah,nama_ibu,th_masuk,email,no_telp,foto,blokir,id_session,id_session_soal,level)
+                   values ('" . $column[0] . "','" . $column[1] . "','" . $column[2] . "','" . $column[3] . "','" . $column[4] . "','" . $column[5] . "','" . $column[6] . "','" . $column[7] . "','" . $column[8] . "','" . $column[9] . "','" . $column[10] . "','" . $column[11] . "','" . $column[12] . "','" . $column[13] . "','" . $column[14] . "','" . $column[15] . "','" . $column[16] . "','" . $column[17] . "','" . $column[18] . "','" . $column[19] . "','" . $column[20] . "','" . $column[21] . "')";
+            $result = mysqli_query($conn, $sqlInsert);
+            
+            if (! empty($result)) {
+                $type = "success";
+                $message = "CSV Data Imported into the Database";
+            } else {
+                $type = "error";
+                $message = "Problem in Importing CSV Data";
+            }
+        }
+    }
+}
+    
+          header('location:../../media_admin.php?module='.$module);
+    
+    
+  }
+
 //upadate pengajar
 
 elseif ($module=='admin' AND $act=='update_pengajar'){

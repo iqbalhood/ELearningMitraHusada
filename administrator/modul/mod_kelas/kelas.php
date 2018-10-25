@@ -56,11 +56,32 @@ switch($_GET[act]){
   default:
     if ($_SESSION[leveluser]=='admin'){
       $tampil = mysql_query("SELECT * FROM kelas ORDER BY id_kelas");
-
       echo "<h2>Manajemen Kelas</h2><hr>
           <input type=button class='button blue' value='Tambah Kelas' onclick=\"window.location.href='?module=kelas&act=tambahkelas';\">";
+      echo "<br><br><form method=GET action=''>
+          <fieldset>
+          <legend>Search</legend>
+          <dl class='inline'>
+          <input type=text name='module' value='kelas' hidden>
+          <input type=text name='act' value='searchkelas' hidden>
+          <dt><input type=text name='searchtext' placeholder='id kelas/kelas' size='35'></dt> 
+          <dd>&nbsp; <select name='id_pengajar'>
+                                                  <option value=''>Pilih dosen/ALL</option>";
+                                                  $tampil_pengajar=mysql_query("SELECT * FROM pengajar ORDER BY nama_lengkap");
+                                                  while($p=mysql_fetch_array($tampil_pengajar)){
+                                                  echo "<option value=$p[id_pengajar]>$p[nama_lengkap]</option>";
+                                                  }echo "</select>
+                                                  
+                                                  <input class='button blue' type=submit value=Search>
+                                                  </dd>
+           
+          
+                        
+          </dl>
+          
+          </fieldset></form>";
       echo "<br><br><table id='table1' class='gtable sortable'><thead>
-          <tr><th>No</th><th>Id kelas</th><th>Kelas</th><th>Dosen Wali</th><th>Komting</th><th>Aksi</th></tr></thead>";
+          <tr><th>No</th><th>Id kelas</th><th>Kelas</th><th>Dosen Wali</th><th>Aksi</th></tr></thead>";
     $no=1;
     while ($r=mysql_fetch_array($tampil)){       
        echo "<tr><td>$no</td>
@@ -76,15 +97,6 @@ switch($_GET[act]){
                             echo "<td></td>";
                     }
 
-                    $siswa = mysql_query("SELECT * FROM siswa WHERE id_siswa = '$r[id_siswa]]'");
-                    $ada_siswa = mysql_num_rows($siswa);
-                    if(!empty($ada_siswa)){
-                    while ($s=mysql_fetch_array($siswa)){
-                            echo"<td><a href=?module=siswa&act=detailsiswa&id=$s[id_siswa] title='Detail Siswa'>$s[nama_lengkap]</td>";
-                     }
-                    }else{
-                            echo"<td></td>";
-                    }
              echo "<td><a href='?module=kelas&act=editkelas&id=$r[id]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |
                  <a href=javascript:confirmdelete('$aksi?module=kelas&act=hapuskelas&id=$r[id]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a> |
                  <a href=?module=daftarsiswa&act=lihatmurid&id=$r[id_kelas]>Lihat Siswa</a></td></tr>";
@@ -95,13 +107,13 @@ switch($_GET[act]){
     }
     elseif ($_SESSION[leveluser]=='pengajar'){
          echo"<h2>Kelas yang anda ampu</h2><hr>
-         <input type=button class='button blue' value='Tambah Kelas' onclick=\"window.location.href='?module=kelas&act=tambahkelas';\">";
+        <!-- <input type=button class='button blue' value='Tambah Kelas' onclick=\"window.location.href='?module=kelas&act=tambahkelas';\">-->";
 
          $tampil_kelas = mysql_query("SELECT * FROM kelas WHERE id_pengajar = '$_SESSION[idpengajar]'");
          $ketemu=mysql_num_rows($tampil_kelas);
          if (!empty($ketemu)){
                 echo "<br><br><table id='table1' class='gtable sortable'><thead>
-                <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th><th>Komting</th><th>Aksi</th></tr></thead>";
+                <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th><th>Aksi</th></tr></thead>";
 
                 $no=1;
                 while ($r=mysql_fetch_array($tampil_kelas)){
@@ -118,17 +130,9 @@ switch($_GET[act]){
                             echo "<td></td>";
                     }
 
-                    $siswa = mysql_query("SELECT * FROM siswa WHERE id_siswa = '$r[id_siswa]'");
-                    $ada_siswa = mysql_num_rows($siswa);
-                    if(!empty($ada_siswa)){
-                    while ($s=mysql_fetch_array($siswa)){
-                            echo"<td><a href=?module=siswa&act=detailsiswa&id=$s[id_siswa] title='Detail Mahasiswa'>$s[nama_lengkap]</td>";
-                     }
-                    }else{
-                            echo"<td></td>";
-                    }
-                    echo "<td><a href='?module=kelas&act=editkelas&id=$r[id]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a>|
-                        <a href=javascript:confirmdelete('$aksi_kelas?module=kelas&act=hapuswalikelas&id=$r[id]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a> |
+                
+                    echo "<td><!--<a href='?module=kelas&act=editkelas&id=$r[id]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a>|
+                        <a href=javascript:confirmdelete('$aksi_kelas?module=kelas&act=hapuswalikelas&id=$r[id]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a> |-->
                         <input class='button small white' type=button value='Lihat Mahasiswa' onclick=\"window.location.href='?module=daftarsiswa&act=lihatmurid&id=$r[id_kelas]';\">";
                 $no++;
                 }
@@ -145,7 +149,7 @@ switch($_GET[act]){
         $kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$data_siswa[id_kelas]'");
 
         echo "<table>
-          <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th><th>komting</th><th>Aksi</th></tr>";
+          <tr><th>No</th><th>Kelas</th><th>Dosen Wali</th></tr>";
         $no=1;
         while ($r=mysql_fetch_array($kelas)){
        echo "<tr>
@@ -161,24 +165,85 @@ switch($_GET[act]){
                             echo "<td></td>";
                     }
 
-                    $siswa = mysql_query("SELECT * FROM siswa WHERE id_siswa = '$r[id_siswa]]'");
-                    $ada_siswa = mysql_num_rows($siswa);
-                    if(!empty($ada_siswa)){
-                    while ($s=mysql_fetch_array($siswa)){
-                            echo"<td><a href=?module=siswa&act=detailsiswa&id=$s[id_siswa] title='Detail Siswa'>$s[nama_lengkap]</td>";
-                     }
-                    }else{
-                            echo"<td></td>";
-                    }
-             echo "<td><input type=button class='tombol' value='Edit Kelas'
+                    echo "<!--<td><input type=button class='tombol' value='Edit Kelas'
           onclick=\"window.location.href='?module=kelas&act=editkelas&id=$r[id]';\">
           <input type=button class='tombol' value='Lihat Teman'
           onclick=\"window.location.href='?module=siswa&act=lihatmurid&id=$r[id_kelas]';\">
-          </td></tr>";
+          </td>--></tr>";
       $no++;
     }
     echo "</table>";
     }
+    break;
+
+    case searchkelas:
+    if ($_SESSION[leveluser]=='admin'){     
+        $searchtext =  $_GET['searchtext'];
+        $pengajar =  $_GET['id_pengajar'];
+        if($searchtext <> " " && $pengajar <> " "){
+            $query = "SELECT * FROM `kelas` WHERE (`id_kelas` LIKE '%$searchtext%' OR `nama` LIKE '%$searchtext%') AND `id_pengajar` LIKE '%$pengajar%'";
+            
+        }
+        else if($searchtext == " " && $pengajar <> " "){
+            $query = "SELECT * FROM `kelas` WHERE `id_pengajar` LIKE '%$pengajar%'";
+            
+        }
+        else if($searchtext <> " " && $pengajar == " "){
+            $query = "SELECT * FROM `kelas` WHERE `id_kelas` LIKE '%$searchtext%' OR `nama` LIKE '%$searchtext%'";
+            
+        }else{
+            $query = "SELECT * FROM `kelas` WHERE `id_kelas` LIKE '%$searchtext%' OR `nama` LIKE '%$searchtext%'";
+        }
+       
+      $tampil = mysql_query($query);
+
+      echo "<h2>Manajemen Kelas</h2><hr>
+          <input type=button class='button blue' value='Tambah Kelas' onclick=\"window.location.href='?module=kelas&act=tambahkelas';\">";
+      echo "<br><br><form method=GET action=''>
+          <fieldset>
+          <legend>Search</legend>
+          <input type=text name='module' value='kelas' hidden>
+          <input type=text name='act' value='searchkelas' hidden>
+          <dl class='inline'>
+          <dt><input type=text name='searchtext' placeholder='id kelas/kelas' size='35'></dt>        
+          <dd>&nbsp; <select name='id_pengajar'>
+                                                <option value=''>Pilih dosen/ALL</option>";
+                                                  $tampil_pengajar=mysql_query("SELECT * FROM pengajar ORDER BY nama_lengkap");
+                                                  while($p=mysql_fetch_array($tampil_pengajar)){
+                                                  echo "<option value=$p[id_pengajar]>$p[nama_lengkap]</option>";
+                                                  }echo "</select>
+                                                  
+                                                  <input class='button blue' type=submit value=Search>
+                                                  </dd>                   
+          </dl>
+         
+          </fieldset></form>";
+      echo "<br><br><table id='table1' class='gtable sortable'><thead>
+          <tr><th>No</th><th>Id kelas</th><th>Kelas</th><th>Dosen Wali</th><th>Aksi</th></tr></thead>";
+    $no=1;
+    while ($r=mysql_fetch_array($tampil)){       
+       echo "<tr><td>$no</td>
+             <td>$r[id_kelas]</td>
+             <td>$r[nama]</td>";
+             $pengajar = mysql_query("SELECT * FROM pengajar WHERE id_pengajar = '$r[id_pengajar]'");
+                    $ada_pengajar = mysql_num_rows($pengajar);
+                    if(!empty($ada_pengajar)){
+                    while($p=mysql_fetch_array($pengajar)){
+                            echo "<td><a href=?module=admin&act=detailpengajar&id=$r[id_pengajar] title='Detail Wali Kelas'>$p[nama_lengkap]</a></td>";
+                    }
+                    }else{
+                            echo "<td></td>";
+                    }
+                  
+             echo "<td><a href='?module=kelas&act=editkelas&id=$r[id]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |
+                 <a href=javascript:confirmdelete('$aksi?module=kelas&act=hapuskelas&id=$r[id]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a> |
+                 <a href=?module=daftarsiswa&act=lihatmurid&id=$r[id_kelas]>Lihat Siswa</a></td></tr>";
+      $no++;
+      
+    }
+    echo "</table>";
+    
+    }    
     break;
     
     case "tambahkelas":

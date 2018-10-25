@@ -62,6 +62,50 @@ else{
 }
 return $link_halaman;
 }
+
+function navSearchHalaman($halaman_aktif, $jmlhalaman){
+	$link_halaman = "";
+	
+	// Link ke halaman pertama (first) dan sebelumnya (prev)
+	if($halaman_aktif > 1){
+		$prev = $halaman_aktif-1;
+		$link_halaman .= "<a href=$_SERVER[PHP_SELF]?module=$_GET[module]&act=searchdaftarmateri&id=$_GET[id]&searchtext=$_GET[searchtext]&halaman=1><< First</a> |
+						<a href=$_SERVER[PHP_SELF]?module=$_GET[module]&act=searchdaftarmateri&id=$_GET[id]&searchtext=$_GET[searchtext]&halaman=$prev>< Prev</a> | ";
+	}
+	else{ 
+		$link_halaman .= "<< First | < Prev | ";
+	}
+	
+	// Link halaman 1,2,3, ...
+	$angka = ($halaman_aktif > 3 ? " ... " : " "); 
+	for ($i=$halaman_aktif-2; $i<$halaman_aktif; $i++){
+	  if ($i < 1)
+		  continue;
+		  $angka .= "<a href=$_SERVER[PHP_SELF]?module=$_GET[module]&act=searchdaftarmateri&id=$_GET[id]&searchtext=$_GET[searchtext]&halaman=$i>$i</a> | ";
+	  }
+		  $angka .= " <b>$halaman_aktif</b> | ";
+		  
+		for($i=$halaman_aktif+1; $i<($halaman_aktif+3); $i++){
+		if($i > $jmlhalaman)
+		  break;
+		  $angka .= "<a href=$_SERVER[PHP_SELF]?module=$_GET[module]&act=searchdaftarmateri&id=$_GET[id]&searchtext=$_GET[searchtext]&halaman=$i>$i</a> | ";
+		}
+		  $angka .= ($halaman_aktif+2<$jmlhalaman ? " ... | <a href=$_SERVER[PHP_SELF]?module=$_GET[module]&act=daftarmateri&id=$_GET[id]&searchtext=$_GET[searchtext]&halaman=$jmlhalaman>$jmlhalaman</a> | " : " ");
+	
+	$link_halaman .= "$angka";
+	
+	// Link ke halaman berikutnya (Next) dan terakhir (Last) 
+	if($halaman_aktif < $jmlhalaman){
+		$next = $halaman_aktif+1;
+		$link_halaman .= " <a href=$_SERVER[PHP_SELF]?module=$_GET[module]&act=searchdaftarmateri&id=$_GET[id]&searchtext=$_GET[searchtext]&halaman=$next>Next ></a> |
+						 <a href=$_SERVER[PHP_SELF]?module=$_GET[module]&act=searchdaftarmateri&id=$_GET[id]&searchtext=$_GET[searchtext]&halaman=$jmlhalaman>Last >></a> ";
+	}
+	else{
+		$link_halaman .= " Next > | Last >>";
+	}
+	return $link_halaman;
+	}
+
 }
 
 class paging_lihatmurid{

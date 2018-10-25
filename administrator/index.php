@@ -49,7 +49,7 @@ function validasi(form){
 	<div class="container_12 clearfix">
 		<div id="logo" class="grid_12">
 			<!-- replace with your website title or logo -->
-			<a id="site-title">E-Learning <span>STIKes Mitra Husada Medan</span></a>
+			<a id="site-title"><img src="../images/logomh.png" height="70px;"></span></a>
 			
 		</div>
 	</div>

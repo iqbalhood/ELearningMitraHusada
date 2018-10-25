@@ -29,13 +29,14 @@ document.location = delUrl;
    $query2 = "SELECT * FROM mata_pelajaran WHERE id_kelas = '$idkelas'";
    $hasil2 = mysql_query($query2);
    $content = "document.getElementById('pelajaran').innerHTML = \"<select name='".id_matapelajaran."'>";
+   $content .= "<option value=''>Pilih matakuliah/ALL</option>";
    while ($data2 = mysql_fetch_array($hasil2))
    {
        $content .= "<option value='".$data2['id_matapelajaran']."'>".$data2['nama']."</option>";
    }
    $content .= "</select>\";";
    echo $content;
-   echo "}\n";
+   echo "}else if (document.form_topik.id_kelas.value == '' ){document.getElementById('pelajaran').style.visibility = 'hidden';}else{document.getElementById('pelajaran').style.visibility = 'visible';}\n";
  }
 
  ?>
@@ -93,11 +94,43 @@ switch($_GET[act]){
       if ($_SESSION[leveluser]=='admin'){    
         echo "<h2>Manajemen Tugas/Quiz</h2><hr>
           <input type=button class='button blue' value='Tambah Topik' onclick=\"window.location.href='?module=quiz&act=tambahtopikquiz';\">";
+          echo "<br><br><form method=GET action='' name='form_topik'>
+          <fieldset>
+          <legend>Search</legend>
+          <dl class='inline'>
+          <input type=text name='module' value='quiz' hidden>
+          <input type=text name='act' value='searchquiz' hidden>
+          <dt><input type=text name='searchtext' placeholder='judul' size='35'>
+          </dt> 
+          <dd> &nbsp;           
+           <select name='id_pengajar'>
+                                                  <option value=''>Pilih dosen/ALL</option>";
+                                                  $tampil_pengajar=mysql_query("SELECT * FROM pengajar ORDER BY nama_lengkap");
+                                                  while($p=mysql_fetch_array($tampil_pengajar)){
+                                                  echo "<option value=$p[id_pengajar]>$p[nama_lengkap]</option>";
+                                                  }echo "</select>                                                  
+                                                 
+                                                  </dd>
+         <dt><select name='id_kelas' onChange='showpel()' style='width: 205px;'>
+         <option value=''>Pilih kelas/ALL</option>";
+         $pilih="SELECT * FROM kelas ORDER BY nama";
+         $query=mysql_query($pilih);
+         while($row=mysql_fetch_array($query)){
+         echo"<option value='".$row[id_kelas]."'>".$row[nama]."</option>";
+         }
+         echo"</select>&nbsp;</dt><dd><div id='pelajaran'></div></dd>
+         <dt> <input class='button blue' type=submit value=Search></dt>
 
-        echo "<br><br><table id='table1' class='sortable'><thead>
+           
+          
+                        
+          </dl>
+          
+          </fieldset></form>";
+        echo "<br><br><table id='table1' class='gtable sortable'><thead>
           <tr><th>no</th><th>judul</th><th>kelas</th><th>mata kuliah</th><th>tgl buat</th><th>tgl Akhir pengerjaan</th><th>pembuat</th><th>waktu</th><th>Info</th><th>terbit</th><th>aksi</th></tr></thead>";
         
-        $tampil_topik = mysql_query("SELECT * FROM topik_quiz ORDER BY id_kelas");
+        $tampil_topik = mysql_query("SELECT * FROM topik_quiz ORDER BY id_tq desc");
         
     $no=1;
     while ($r=mysql_fetch_array($tampil_topik)){
@@ -148,10 +181,30 @@ switch($_GET[act]){
     
     }    
     elseif ($_SESSION[leveluser]=='pengajar'){
-    $tampil_topik = mysql_query("SELECT * FROM topik_quiz WHERE pembuat = '$_SESSION[idpengajar]'");
+    $tampil_topik = mysql_query("SELECT * FROM topik_quiz WHERE pembuat = '$_SESSION[idpengajar]' order by id_tq desc");
         echo "<h2>Daftar Topik Quiz</h2><hr>
           <input class='button blue' type=button value='Tambah Topik' onclick=\"window.location.href='?module=quiz&act=tambahtopikquiz';\">";
-        echo "<br><br><table id='table1' class='gtable sortable'><thead>
+          echo "<br><br><form method=GET action='' name='form_topik'>
+          <fieldset>
+          <legend>Search</legend>
+          <dl class='inline'>
+          <input type=text name='module' value='quiz' hidden>
+          <input type=text name='act' value='searchquiz' hidden>
+          <dt><input type=text name='searchtext' placeholder='judul' size='35'>
+          </dt>           
+         <dt><select name='id_kelas' onChange='showpel()' style='width: 205px;'>
+         <option value=''>Pilih kelas/ALL</option>";
+         $pilih="SELECT * FROM kelas ORDER BY nama";
+         $query=mysql_query($pilih);
+         while($row=mysql_fetch_array($query)){
+         echo"<option value='".$row[id_kelas]."'>".$row[nama]."</option>";
+         }
+         echo"</select>&nbsp;</dt><dd><div id='pelajaran'></div></dd>
+         <dt> <input class='button blue' type=submit value=Search></dt>              
+          </dl>          
+          </fieldset></form>";
+       
+          echo "<br><br><table id='table1' class='gtable sortable'><thead>
           <tr><th>No</th><th>Judul</th><th>Kelas</th><th>Pelajaran</th><th>Tgl Buat</th><th>Tgl Akhir pengerjaan</th><th>Lama Pengerjaan</th><th>Info</th><th>Terbit</th><th>Aksi</th></tr></thead>";
         
         
@@ -219,6 +272,245 @@ switch($_GET[act]){
     }
     break;
 
+    case searchquiz:
+      
+      if ($_SESSION[leveluser]=='admin'){    
+           echo "<h2>search Manajemen Tugas/Quiz</h2><hr>
+          <input type=button class='button blue' value='Tambah Topik' onclick=\"window.location.href='?module=quiz&act=tambahtopikquiz';\">";
+          echo "<br><br><form method=GET action='' name='form_topik'>
+          <fieldset>
+          <legend>Search</legend>
+          <dl class='inline'>
+          <input type=text name='module' value='quiz' hidden>
+          <input type=text name='act' value='searchquiz' hidden>
+          <dt><input type=text name='searchtext' placeholder='judul' size='35'>
+          </dt> 
+          <dd> &nbsp;           
+           <select name='id_pengajar'>
+                                                  <option value=''>Pilih dosen/ALL</option>";
+                                                  $tampil_pengajar=mysql_query("SELECT * FROM pengajar ORDER BY nama_lengkap");
+                                                  while($p=mysql_fetch_array($tampil_pengajar)){
+                                                  echo "<option value=$p[id_pengajar]>$p[nama_lengkap]</option>";
+                                                  }echo "</select>                                                  
+                                                 
+                                                  </dd>
+         <dt><select name='id_kelas' onChange='showpel()' style='width: 205px;'>
+         <option value=''>Pilih kelas/ALL</option>";
+         $pilih="SELECT * FROM kelas ORDER BY nama";
+         $query=mysql_query($pilih);
+         while($row=mysql_fetch_array($query)){
+         echo"<option value='".$row[id_kelas]."'>".$row[nama]."</option>";
+         }
+         echo"</select>&nbsp;</dt><dd><div id='pelajaran'></div></dd>
+         <dt> <input class='button blue' type=submit value=Search></dt>
+
+           
+          
+                        
+          </dl>
+          
+          </fieldset></form>";
+        echo "<br><br><table id='table1' class='gtable sortable'><thead>
+          <tr><th>no</th><th>judul</th><th>kelas</th><th>mata kuliah</th><th>tgl buat</th><th>tgl Akhir pengerjaan</th><th>pembuat</th><th>waktu</th><th>Info</th><th>terbit</th><th>aksi</th></tr></thead>";
+        
+          $searchtext =  $_GET['searchtext'];
+          $kelas =  $_GET['id_kelas'];
+          $pelajaran =  $_GET['id_matapelajaran'];
+          $pengajar =  $_GET['id_pengajar'];
+          if($searchtext <> " " && $kelas <> " " && $pengajar <> " " && $pelajaran <> " "){
+            $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `id_kelas` LIKE '%$kelas%' AND `pembuat` LIKE '%$pengajar%' AND `id_matapelajaran` LIKE '%$pelajaran%'";
+         }
+         else if($searchtext <> " " && $kelas <> " " && $pengajar <> " " && $pelajaran == " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `id_kelas` LIKE '%$kelas%' AND `pembuat` LIKE '%$pengajar%'";
+         }
+         else if($searchtext <> " " && $kelas <> " " && $pengajar == " " && $pelajaran <> " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `id_kelas` LIKE '%$kelas%' AND `id_matapelajaran` LIKE '%$pelajaran%'";
+         }
+         else if($searchtext <> " " && $kelas == " " && $pengajar <> " " && $pelajaran <> " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `pembuat` LIKE '%$pengajar%' AND `id_matapelajaran` LIKE '%$pelajaran%'";
+         }
+         else if($searchtext == " " && $kelas <> " " && $pengajar <> " " && $pelajaran <> " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `id_kelas` LIKE '%$kelas%' AND `pembuat` LIKE '%$pengajar%' AND `id_matapelajaran` LIKE '%$pelajaran%'";
+         }
+         else if($searchtext <> " " && $kelas <> " " && $pengajar == " " && $pelajaran == " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `id_kelas` LIKE '%$kelas%'";
+         }
+         else if($searchtext <> " " && $kelas == " " && $pengajar == " " && $pelajaran <> " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `id_matapelajaran` LIKE '%$pelajaran%'";
+         }
+         else if($searchtext == " " && $kelas == " " && $pengajar <> " " && $pelajaran <> " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `pembuat` LIKE '%$pengajar%' AND `id_matapelajaran` LIKE '%$pelajaran%'";
+         }
+         else if($searchtext <> " " && $kelas == " " && $pengajar <> " " && $pelajaran == " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `pembuat` LIKE '%$pengajar%'";
+         }
+         else if($searchtext == " " && $kelas <> " " && $pengajar == " " && $pelajaran <> " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `id_kelas` LIKE '%$kelas%' AND `id_matapelajaran` LIKE '%$pelajaran%'";
+         }
+         else if($searchtext <> " " && $kelas == " " && $pengajar == " " && $pelajaran == " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%'";
+         }
+         else if($searchtext == " " && $kelas <> " " && $pengajar == " " && $pelajaran == " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `id_kelas` LIKE '%$kelas%'";
+         }
+         else if($searchtext == " " && $kelas == " " && $pengajar <> " " && $pelajaran == " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `pembuat` LIKE '%$pengajar%'";
+         }
+         else if($searchtext == " " && $kelas == " " && $pengajar == " " && $pelajaran <> " "){
+             $query = "SELECT * FROM `topik_quiz` WHERE `id_matapelajaran` LIKE '%$pelajaran%'";
+         }
+         else{
+             $query = "SELECT * FROM `topik_quiz`";
+         }
+         
+        $tampil_topik = mysql_query($query);
+        
+    $no=1;
+    while ($r=mysql_fetch_array($tampil_topik)){
+      $wpengerjaan = $r[waktu_pengerjaan] / 60;
+      $tgl_buat   = tgl_indo($r[tgl_buat]);
+      $tgl_akhir   = tgl_indo($r[tgl_batas]);
+       echo "<tr><td>$no</td>
+             <td>$r[judul]</td>";
+             $kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$r[id_kelas]'");
+             $cek_kelas = mysql_num_rows($kelas);
+             if(!empty($cek_kelas)){
+             while($k=mysql_fetch_array($kelas)){
+                 echo "<td><a href=?module=kelas&act=detailkelas&id=$r[id_kelas] title='Detail Kelas'>$k[nama]</td>";
+             }
+             }else{
+                 echo"<td></td>";
+             }
+             $pelajaran = mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$r[id_matapelajaran]'");
+             $cek_pelajaran = mysql_num_rows($pelajaran);
+             if(!empty($cek_pelajaran)){
+             $p=mysql_fetch_array($pelajaran);
+             echo "<td><a href=?module=matapelajaran&act=detailpelajaran&id=$r[id_matapelajaran] title='Detail pelajaran'>$p[nama]</a></td>";
+             }else{
+                 echo"<td></td>";
+             }
+             echo"<td>$tgl_buat</td><td>$tgl_akhir</td>";
+             $pelajaran2 = mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$r[id_matapelajaran]'");
+             $p2=mysql_fetch_array($pelajaran2);
+             $pembuat = mysql_query("SELECT * FROM pengajar WHERE id_pengajar = '$p2[id_pengajar]'");
+             $cek_pembuat = mysql_num_rows($pembuat);
+             if (!empty($cek_pembuat)){
+                 $data_pembuat = mysql_fetch_array($pembuat);
+                 echo "<td><a href=?module=admin&act=detailpengajar&id=$data_pembuat[id_pengajar] title='Detail pengajar'>$data_pembuat[nama_lengkap]</a></td>";
+             }else{                 
+                 echo"<td>$r[pembuat]</td>";
+             }
+             echo"<td>$wpengerjaan menit</td>
+             <td>$r[info]</td>
+             <td><p align='center'>$r[terbit]</p></td>
+             <td><ul><li><a href='?module=quiz&act=edittopikquiz&id=$r[id_tq]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> | 
+                 <a href=javascript:confirmdelete('$aksi?module=quiz&act=hapustopikquiz&id=$r[id_tq]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a></li>
+                 <li><a href=?module=buatquiz&act=buatquiz&id=$r[id_tq]>Buat Quiz</a></li>
+                 <li><a href=?module=daftarquiz&act=daftarquiz&id=$r[id_tq]>Daftar Quiz</a></li>
+                 <li><a href=?module=quiz&act=daftarsiswayangtelahmengerjakan&id=$r[id_tq]>Daftar Peserta & Koreksi</a></li></ul></td></tr>";
+      $no++;
+    }
+    echo "</table>";
+    
+    }elseif ($_SESSION[leveluser]=='pengajar'){
+        $searchtext =  $_GET['searchtext'];
+          $kelas =  $_GET['id_kelas'];
+          $pelajaran =  $_GET['id_matapelajaran'];
+          if($searchtext <> " " && $kelas <> " " && $pelajaran <> " "){
+            $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `id_kelas` LIKE '%$kelas%' AND `id_matapelajaran` LIKE '%$pelajaran%' AND pembuat = '$_SESSION[idpengajar]' order by id_tq desc";
+         }
+         else if($searchtext <> " " && $kelas <> " " && $pelajaran == " "){
+            $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `id_kelas` LIKE '%$kelas%' AND pembuat = '$_SESSION[idpengajar]' order by id_tq desc";
+         }
+         else if($searchtext <> " " && $kelas == " " && $pelajaran <> " "){
+            $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `id_matapelajaran` LIKE '%$pelajaran%' AND pembuat = '$_SESSION[idpengajar]' order by id_tq desc";
+        }
+        else if($searchtext == " " && $kelas <> " " && $pelajaran <> " "){
+            $query = "SELECT * FROM `topik_quiz` WHERE `id_kelas` LIKE '%$kelas%' AND `id_matapelajaran` LIKE '%$pelajaran%' AND pembuat = '$_SESSION[idpengajar]' order by id_tq desc";
+        }
+        else if($searchtext <> " " && $kelas == " " && $pelajaran == " "){
+            $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND pembuat = '$_SESSION[idpengajar]' order by id_tq desc";
+        }  
+        else if($searchtext == " " && $kelas <> " " && $pelajaran == " "){
+            $query = "SELECT * FROM `topik_quiz` WHERE `id_kelas` LIKE '%$kelas%' AND pembuat = '$_SESSION[idpengajar]' order by id_tq desc";
+        }  
+        else if($searchtext == " " && $kelas == " " && $pelajaran <> " "){
+            $query = "SELECT * FROM `topik_quiz` WHERE `id_matapelajaran` LIKE '%$pelajaran%' AND pembuat = '$_SESSION[idpengajar]' order by id_tq desc";
+        }       
+         else{
+             $query = "SELECT * FROM `topik_quiz` WHERE pembuat = '$_SESSION[idpengajar]' order by id_tq desc";
+         }
+        $tampil_topik = mysql_query($query);
+        echo "<h2>Daftar Topik Quiz</h2><hr>
+          <input class='button blue' type=button value='Tambah Topik' onclick=\"window.location.href='?module=quiz&act=tambahtopikquiz';\">";
+          echo "<br><br><form method=GET action='' name='form_topik'>
+          <fieldset>
+          <legend>Search</legend>
+          <dl class='inline'>
+          <input type=text name='module' value='quiz' hidden>
+          <input type=text name='act' value='searchquiz' hidden>
+          <dt><input type=text name='searchtext' placeholder='judul' size='35'>
+          </dt>           
+         <dt><select name='id_kelas' onChange='showpel()' style='width: 205px;'>
+         <option value=''>Pilih kelas/ALL</option>";
+         $pilih="SELECT * FROM kelas ORDER BY nama";
+         $query=mysql_query($pilih);
+         while($row=mysql_fetch_array($query)){
+         echo"<option value='".$row[id_kelas]."'>".$row[nama]."</option>";
+         }
+         echo"</select>&nbsp;</dt><dd><div id='pelajaran'></div></dd>
+         <dt> <input class='button blue' type=submit value=Search></dt>
+
+           
+          
+                        
+          </dl>
+          
+          </fieldset></form>";
+       
+          echo "<br><br><table id='table1' class='gtable sortable'><thead>
+          <tr><th>No</th><th>Judul</th><th>Kelas</th><th>Pelajaran</th><th>Tgl Buat</th><th>Tgl Akhir pengerjaan</th><th>Lama Pengerjaan</th><th>Info</th><th>Terbit</th><th>Aksi</th></tr></thead>";
+        
+        
+        $no=1;
+        while ($r=mysql_fetch_array($tampil_topik)){
+        $wpengerjaan = $r[waktu_pengerjaan] / 60;
+        $tgl_buat   = tgl_indo($r[tgl_buat]);
+        $tgl_akhir   = tgl_indo($r[tgl_batas]);
+        echo "<tr><td>$no</td>
+             <td>$r[judul]</td>";
+             $kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$r[id_kelas]'");
+             $cek_kelas = mysql_num_rows($kelas);
+             if(!empty($cek_kelas)){
+             while($k=mysql_fetch_array($kelas)){
+                 echo "<td><a href=?module=kelas&act=detailkelas&id=$r[id_kelas] title='Detail Kelas'>$k[nama]</td>";
+             }
+             }else{
+                 echo "<td></td>";
+             }
+             $pelajaran = mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$r[id_matapelajaran]'");
+             $cek_pelajaran = mysql_num_rows($pelajaran);
+             if(!empty($cek_pelajaran)){
+             while($p=mysql_fetch_array($pelajaran)){
+             echo "<td><a href=?module=matapelajaran&act=detailpelajaran&id=$r[id_matapelajaran] title='Detail pelajaran'>$p[nama]</a></td>";
+             }
+             }else{
+                 echo "<td></td>";
+             }
+             echo "<td>$tgl_buat</td><td>$tgl_akhir</td>
+             <td>$wpengerjaan menit</td>
+             <td>$r[info]</td>
+             <td><p align='center'>$r[terbit]</p></td>
+             <td><a href='?module=quiz&act=edittopikquiz&id=$r[id_tq]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /> | 
+                         <a href=javascript:confirmdelete('$aksi?module=quiz&act=hapustopikquiz&id=$r[id_tq]') title='Hapus'><img src='images/icons/cross.png' alt='Delete' /></a><br><br>
+                 <input type=button class='button small white' value='Buat Quiz' onclick=\"window.location.href='?module=buatquiz&act=buatquiz&id=$r[id_tq]';\"></input><br>
+                <input type=button class='button small white' value='Daftar Quiz' onclick=\"window.location.href='?module=daftarquiz&act=daftarquiz&id=$r[id_tq]';\"></input><br>
+                <input type=button class='button small white' value='Peserta & koreksi' onclick=\"window.location.href='?module=quiz&act=daftarsiswayangtelahmengerjakan&id=$r[id_tq]';\"></input></td></tr>";
+      $no++;
+    }
+    echo "</table>";   
+    }
+    break;
 
 case "daftarsiswayangtelahmengerjakan":
     if ($_SESSION[leveluser]=='admin'){
@@ -1229,8 +1521,117 @@ case "daftartopik":
         $cek_topik = mysql_num_rows($topik);
 
         if (!empty($cek_topik)){
-            echo"<br><b class='judul'>Daftar Tugas / Quiz Mata Pelajaran $data_mapel[nama]</b><br><p class='garisbawah'></p>
-              <table>
+            echo"<br><b class='judul'>Daftar Tugas / Quiz Mata Pelajaran $data_mapel[nama]</b><br><p class='garisbawah'></p>";
+            echo "<form method=GET action='' name='form_topik'>
+          <fieldset>
+          <dl class='inline'>
+          <input type=text name='module' value='quiz' hidden>
+          <input type=text name='act' value='searchdaftartopik' hidden>
+          <input type=text name='id_kelas' value='$_GET[id_kelas]' hidden>
+          <input type=text name='id' value='$_GET[id]' hidden>
+          <dt><input type=text name='searchtext' placeholder='judul quiz' size='35' style='border-radius: 5px; padding:4px 5px;'> <input class='button blue' type=submit value=Search style='font-weight: bold;
+          border: 1px solid #0d717e;
+          background: #28a0b2;
+          color: #fff;       
+          display: inline-block;
+          zoom: 1;
+          *display: inline;
+          vertical-align: baseline;
+          margin: 0 3px 0 1px; 
+          outline: none; 
+          cursor: pointer; 
+          text-align: center;
+          padding: 6px 8px; 
+          text-shadow: 1px 1px 1px #555; 
+          width: auto; 
+          overflow: visible; 
+          line-height: 110%;'>
+          </dt>                
+          </dl>
+          </fieldset></form><br>";
+              
+            echo "<table>
+              <tr><th>No</th><th>Deskripsi Tugas/Quiz </th><th></th></tr>";
+              $no=1;
+              while($t=mysql_fetch_array($topik)){
+                  $tgl_posting   = tgl_indo($t[tgl_buat]);
+                  $tgl_akhir   = tgl_indo($t[tgl_batas]);
+                  $pengajar =  mysql_query("SELECT * FROM pengajar WHERE id_pengajar = '$t[pembuat]'");
+                  $cek_pengajar = mysql_num_rows($pengajar);
+                  $waktu = $t[waktu_pengerjaan] / 60;
+                  echo"<tr><td rowspan=7>$no</td><td><b>Judul</b></td><td><b>: $t[judul]</b></td></tr>
+                       <tr><td><b>Tanggal Posting</b></td><td><b>: $tgl_posting</b></td></tr>
+                       <tr><td><b>Tanggal Batas Pengerjaan</b></td><td><b>: $tgl_akhir</b></td></tr>";
+                       if(!empty($cek_pengajar)){
+
+                       $p = mysql_fetch_array($pengajar);
+                       echo"<tr><td><b>Pembuat</b></td><td><b>: $p[nama_lengkap]</b></td></tr>";
+                       }else{
+                           echo"<tr><td><b>Pembuat</b></td><td><b>: $t[pembuat]</b></td></tr>";
+                       }
+                       echo"<tr><td><b>Waktu Pengerjaan</b></td><td><b>: $waktu menit</b></td></tr>
+                            <tr><td><b>Info Soal/Quiz</b></td><td><b>: $t[info]</b></td></tr>
+                            <tr><td></td><td><input type=button class='tombol' value='Kerjakan Tugas/Quiz'
+                       onclick=\"window.location.href='?module=quiz&act=infokerjakan&id=$t[id_tq]';\"></td></tr>";
+              $no++;
+              }
+              echo"</table>
+                    <p class='garisbawah'></p><input type=button class='tombol' value='Kembali' onclick=self.history.back()>";
+        }else{
+            echo "<script>window.alert('Belum ada Tugas atau Quiz di mata kuliah ini.');
+                    window.location=(href='media.php?module=quiz')</script>";
+        }
+    }
+    break;
+
+
+    case "searchdaftartopik":
+    if ($_SESSION[leveluser]=='siswa'){
+        $tgl_inihari = date("Y-m-d");
+        $mapel = mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$_GET[id]'");
+        $data_mapel = mysql_fetch_array($mapel);
+
+        $searchtext =  $_GET['searchtext'];
+        if($searchtext <> " "){
+            $query = "SELECT * FROM `topik_quiz` WHERE `judul` LIKE '%$searchtext%' AND `id_kelas` = '$_GET[id_kelas]' AND `id_matapelajaran` = '$_GET[id]' AND terbit='Y' AND tgl_batas > '$tgl_inihari' order by id_tq desc";
+         }else{
+            $query = "SELECT * FROM `topik_quiz` WHERE `id_kelas` = '$_GET[id_kelas]' AND `id_matapelajaran` = '$_GET[id]' AND terbit='Y' AND tgl_batas > '$tgl_inihari' order by id_tq desc";
+         }
+
+        $topik = mysql_query($query);
+        $cek_topik = mysql_num_rows($topik);
+
+        if (!empty($cek_topik)){
+            echo"<br><b class='judul'>Daftar Tugas / Quiz Mata Pelajaran $data_mapel[nama]</b><br><p class='garisbawah'></p>";
+            echo "<form method=GET action='' name='form_topik'>
+          <fieldset>
+          <dl class='inline'>
+          <input type=text name='module' value='quiz' hidden>
+          <input type=text name='act' value='searchdaftartopik' hidden>
+          <input type=text name='id_kelas' value='$_GET[id_kelas]' hidden>
+          <input type=text name='id' value='$_GET[id]' hidden>
+          <dt><input type=text name='searchtext' placeholder='judul quiz' size='35' style='border-radius: 5px; padding:4px 5px;'> <input class='button blue' type=submit value=Search style='font-weight: bold;
+          border: 1px solid #0d717e;
+          background: #28a0b2;
+          color: #fff;       
+          display: inline-block;
+          zoom: 1;
+          *display: inline;
+          vertical-align: baseline;
+          margin: 0 3px 0 1px; 
+          outline: none; 
+          cursor: pointer; 
+          text-align: center;
+          padding: 6px 8px; 
+          text-shadow: 1px 1px 1px #555; 
+          width: auto; 
+          overflow: visible; 
+          line-height: 110%;'>
+          </dt>                
+          </dl>
+          </fieldset></form><br>";
+              
+            echo "<table>
               <tr><th>No</th><th>Deskripsi Tugas/Quiz </th><th></th></tr>";
               $no=1;
               while($t=mysql_fetch_array($topik)){

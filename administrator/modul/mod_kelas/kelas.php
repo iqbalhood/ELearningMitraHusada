@@ -58,6 +58,7 @@ switch($_GET[act]){
       $tampil = mysql_query("SELECT * FROM kelas ORDER BY id_kelas");
       echo "<h2>Manajemen Kelas</h2><hr>
           <input type=button class='button blue' value='Tambah Kelas' onclick=\"window.location.href='?module=kelas&act=tambahkelas';\">";
+      echo "<input type=button class='button blue' value='Upload Kelas dari SIAKAD' onclick=\"window.location.href='?module=admin&act=upload_kelas';\">";
       echo "<br><br><form method=GET action=''>
           <fieldset>
           <legend>Search</legend>
@@ -254,13 +255,13 @@ switch($_GET[act]){
           <dl class='inline'>
           <dt><label>Id Kelas</label></dt>        <dd> : <input type=text name='id_kelas' required='required'></dd>
           <dt><label>Nama Kelas</label></dt>      <dd> : <input type=text name='nama' required='required'></dd>
-          <dt><label>Dosen Wali</label></dt>      <dd> : <select name='id_pengajar' required>
+          <dt><label>Dosen Wali</label></dt>      <dd> : <select name='id_pengajar'>
                                       <option value='' >-- Pilih Pengajar --</option>";
                                       $tampil=mysql_query("SELECT * FROM pengajar ORDER BY nama_lengkap");
                                       while($r=mysql_fetch_array($tampil)){
                                       echo "<option value=$r[id_pengajar]>$r[nama_lengkap]</option>";
                                       }echo "</select></dd>
-          <dt><label>Komting</label></dt>     <dd> : <select name='id_siswa' required>
+          <dt><label>Komting</label></dt>     <dd> : <select name='id_siswa'>
                                       <option value=''>-- Pilih Siswa --</option>";
                                       $tampil_siswa=mysql_query("SELECT * FROM siswa ORDER BY nama_lengkap");
                                       while($s=mysql_fetch_array($tampil_siswa)){

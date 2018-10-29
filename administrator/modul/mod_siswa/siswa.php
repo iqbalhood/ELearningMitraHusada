@@ -59,10 +59,15 @@ if (empty($_SESSION['username']) AND empty($_SESSION['passuser'])) {
                     echo "<tr><td>$no</td>
              <td>$r[nis]</td>
              <td>$r[nama_lengkap]</td>";
-                    $kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$r[id_kelas]'");
-                    while ($k = mysql_fetch_array($kelas)) {
-                        echo "<td><a href=?module=kelas&act=detailkelas&id=$r[id_kelas] title='Detail Kelas'>$k[nama]</a></td>";
-                    }
+             if($r['id_kelas']!=""){
+                $kelas = mysql_query("SELECT * FROM kelas WHERE id_kelas = '$r[id_kelas]'");
+                $k = mysql_fetch_assoc($kelas);
+                    echo "<td><a href=?module=kelas&act=detailkelas&id=$r[id_kelas] title='Detail Kelas'>$k[nama]</a></td>";
+                
+             }else{
+                echo "<td></td>";
+             }
+                   
                     echo "<td><p align='center'>$r[jenis_kelamin]</p></td>             
              <td><p align='center'>$r[blokir]</p></td>
              <td><a href='?module=siswa&act=editsiswa&id=$r[id_siswa]' title='Edit'><img src='images/icons/edit.png' alt='Edit' /></a> |

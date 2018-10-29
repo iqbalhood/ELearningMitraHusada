@@ -140,6 +140,37 @@ elseif ($module=='admin' AND $act=='input_pengajar'){
   
 }
 
+// Upload data kelas
+elseif ($module=='admin' AND $act=='upload_kelas'){
+    $conn = mysqli_connect("localhost", "root", "", "dbelearning");
+    if (isset($_POST["import"])) {
+    $fileName = $_FILES["file"]["tmp_name"];
+    
+    if ($_FILES["file"]["size"] > 0) {
+        
+        $file = fopen($fileName, "r");
+        
+        while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
+            $sqlInsert = "INSERT into kelas (id,id_kelas,nama)
+                   values ('','" . $column[0] . "','" . $column[1] . "')";
+            $result = mysqli_query($conn, $sqlInsert);
+            
+            if (! empty($result)) {
+                $type = "success";
+                $message = "CSV Data Imported into the Database";
+            } else {
+                $type = "error";
+                $message = "Problem in Importing CSV Data";
+            }
+        }
+    }
+}
+    
+          header('location:../../media_admin.php?module=kelas');
+    
+    
+  }
+
 // Upload data dosen
 elseif ($module=='admin' AND $act=='upload_dosen'){
     $conn = mysqli_connect("localhost", "root", "", "dbelearning");
@@ -166,7 +197,7 @@ elseif ($module=='admin' AND $act=='upload_dosen'){
     }
 }
     
-          header('location:../../media_admin.php?module='.$module);
+          header('location:../../media_admin.php?module=admin&act=pengajar');
     
     
   }
@@ -198,7 +229,7 @@ elseif ($module=='admin' AND $act=='upload_mahasiswa'){
     }
 }
     
-          header('location:../../media_admin.php?module='.$module);
+          header('location:../../media_admin.php?module=siswa');
     
     
   }

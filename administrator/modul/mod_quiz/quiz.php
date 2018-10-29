@@ -1304,7 +1304,7 @@ case "hasileditkoreksi":
                     }
                     $nilai = $jumlah / 100;
                     $nilai2 = $nilai / $jum_soal;
-                    $nilai3 = $nilai2 * 100;
+                    $nilai3 = $nilai2 * 100;                    
                 echo "<h2>Nilai Keseluruhan = $nilai3</h2>";
                 echo "<input type=hidden name=nilai value='$nilai3'>";
                 echo "
@@ -1344,6 +1344,7 @@ case "hasileditkoreksi":
                     $nilai = $jumlah / 100;
                     $nilai2 = $nilai / $jum_soal;
                     $nilai3 = $nilai2 * 100;
+                    echo "<h2>Nilai Keseluruhan = $jum_soal</h2>";
                 echo "<h2>Nilai Keseluruhan = $nilai3</h2>";
                 echo "<input type=hidden name=nilai value='$nilai3'>";
                 echo "
@@ -1669,7 +1670,7 @@ case "daftarnilai":
     if ($_SESSION[leveluser]=='siswa'){
         $mapel = mysql_query("SELECT * FROM mata_pelajaran WHERE id_matapelajaran = '$_GET[id]'");
         $data_mapel = mysql_fetch_array($mapel);
-        $topik = mysql_query("SELECT * FROM topik_quiz WHERE id_kelas = '$_GET[id_kelas]' AND id_matapelajaran = '$_GET[id]' AND terbit='Y'");
+        $topik = mysql_query("SELECT * FROM topik_quiz WHERE id_kelas = '$_GET[id_kelas]' AND id_matapelajaran = '$_GET[id]' AND terbit='Y' order by id_tq desc");
         $cek_topik = mysql_num_rows($topik);
         
         if (!empty($cek_topik)){

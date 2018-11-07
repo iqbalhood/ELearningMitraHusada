@@ -524,6 +524,8 @@ case "daftarsiswayangtelahmengerjakan":
         Hanya jawaban soal Essay yang bisa di koreksi.<br>
         Penilaian Soal Pilihan Ganda Sistem yang mengerjakan.</div>";
 
+        
+
         $siswa_yangmengerjakan2 = mysql_query("SELECT * FROM siswa_sudah_mengerjakan WHERE id_tq = '$_GET[id]'");
         echo "<br><table id='table1' class='gtable sortable'><thead>
           <tr><th>No</th><th>Nama</th><th>Kelas</th><th>Status</th><th>aksi</th></tr></thead>";
@@ -559,6 +561,7 @@ case "daftarsiswayangtelahmengerjakan":
         }
         echo "</table>";
         echo "<br><input class='button blue' type=button value=Kembali onclick=\"window.location.href='?module=quiz';\">";
+       
         
         }else{
             echo "<script>window.alert('Belum ada siswa yang mengikuti ujian.');
@@ -576,13 +579,18 @@ case "daftarsiswayangtelahmengerjakan":
         $soal_esay = mysql_query("SELECT * FROM quiz_esay WHERE id_tq='$_GET[id]'");
         $esay = mysql_num_rows($soal_esay);
         if (!empty($pilganda) AND !empty($esay)){
-        echo "<form><fieldset>
+        echo "
+        
+        <a href='../print/cetak-nilai.php?id=$_GET[id]' target='_blank'><button class='button blue'> Print</button></a>
+        <form><fieldset>
               <legend>siswa yang telah mengikuti ujian</legend>
               <dl class='inline'>";
          echo "<br><div class='information msg'>
         Pilih Aksi <b>Hapus Siswa</b> jika ingin mereset Siswa yang telah mengikuti ujian.<br>
         Hanya jawaban soal Essay yang bisa di koreksi.<br>
         Penilaian Soal Pilihan Ganda Sistem yang mengerjakan.</div>";
+
+        echo "";
 
         $siswa_yangmengerjakan2 = mysql_query("SELECT * FROM siswa_sudah_mengerjakan WHERE id_tq = '$_GET[id]'");
         echo "<br><table id='table1' class='gtable sortable'><thead>
@@ -620,7 +628,10 @@ case "daftarsiswayangtelahmengerjakan":
               <br><input class='button blue' type=button value=Kembali onclick=self.history.back()>";
         }
         elseif (empty($pilganda) AND !empty($esay)){
-         echo"<form><fieldset>
+         echo"
+        <a href='../print/cetak-nilai.php?id=$_GET[id]' target='_blank'><button class='button blue'> Print</button></a>
+         
+         <form><fieldset>
               <legend>siswa yang telah mengikuti ujian</legend>
               <dl class='inline'>";
          echo "<br><div class='information msg'>
@@ -660,7 +671,12 @@ case "daftarsiswayangtelahmengerjakan":
         <br><input class='button blue' type=button value=Kembali onclick=self.history.back()>";
         }
         elseif (!empty($pilganda) AND empty($esay)){
-         echo "<form><fieldset>
+         echo "
+         
+         <a href='../print/cetak-nilai.php?id=$_GET[id]' target='_blank'><button class='button blue'> Print</button></a>
+         
+         
+         <form><fieldset>
               <legend>siswa yang telah mengikuti ujian</legend>
               <dl class='inline'>";
          echo "<br><div class='information msg'>

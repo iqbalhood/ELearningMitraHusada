@@ -34,7 +34,7 @@ include "../../configurasi/koneksi.php";
 
     $siswa_yangmengerjakan2 = mysql_query("SELECT * FROM siswa_sudah_mengerjakan WHERE id_tq = '$_GET[id]'");
     echo "<br><table border='1'><thead>
-      <tr><th>No</th><th>Nis</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Nilai</th></tr></thead>";
+      <tr><th>No</th><th>NPM</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Nilai</th></tr></thead>";
     $no=1;
     while ($t=mysql_fetch_array($siswa_yangmengerjakan2)){
         $siswa = mysql_query("SELECT * FROM siswa WHERE id_siswa = '$t[id_siswa]'");
@@ -77,7 +77,7 @@ include "../../configurasi/koneksi.php";
 
     $siswa_yangmengerjakan2 = mysql_query("SELECT * FROM siswa_sudah_mengerjakan WHERE id_tq = '$_GET[id]'");
     echo "<br><table border='1'><thead>
-      <tr><th>No</th><th>Nis</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Nilai</th></tr></thead>";
+      <tr><th>No</th><th>NPM</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Nilai</th></tr></thead>";
     $no=1;
     while ($t=mysql_fetch_array($siswa_yangmengerjakan2)){
         $siswa = mysql_query("SELECT * FROM siswa WHERE id_siswa = '$t[id_siswa]'");
@@ -117,7 +117,7 @@ include "../../configurasi/koneksi.php";
 
     $siswa_yangmengerjakan2 = mysql_query("SELECT * FROM siswa_sudah_mengerjakan WHERE id_tq = '$_GET[id]'");
     echo "<br><table border='1'><thead>
-      <tr><th>No</th><th>Nis</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Nilai</th></tr></thead>";
+      <tr><th>No</th><th>NPM</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Nilai</th></tr></thead>";
     $no=1;
     while ($t=mysql_fetch_array($siswa_yangmengerjakan2)){
         $siswa = mysql_query("SELECT * FROM siswa WHERE id_siswa = '$t[id_siswa]'");

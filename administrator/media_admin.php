@@ -67,7 +67,7 @@ else{
 	<div class="container_12 clearfix">
 		<div id="logo" class="grid_5">
 			<!-- replace with your website title or logo -->
-			<a id="site-title" href="dashboard.html"><img src="../images/logomh.png" height="70px;"></a>
+			<a id="site-title" href="media_admin.php?module=home"><img src="../images/logomh.png" height="70px;"></a>
 		</div>
 
 		<div class="grid_4" id="colorstyle">
